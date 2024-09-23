@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const vocales = "aeiou";
+       
+        let letra;
+
+        while (letra != ' ') {
+
+        letra = prompt ("Introduce una letra");
+
+        if(letra == ' '){
+            alert("saliendo");
+        }else if (vocales.includes(letra)){
+            alert("Es una vocal");
+        }else alert ("Es una consonante");
+            
+        }
+       
+    </script>
+</body>
+</html>

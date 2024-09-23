@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const max = 100;
+        const min = 1;
+
+        let numeroAleatorio = Math.trunc((Math.random() * 100)) + 1;
+        let acierto = false;
+
+        while (!acierto){
+
+            let numeroRecogido = prompt("Adivina un número de 1 a 100");
+
+            if(numeroAleatorio != numeroRecogido){
+                if(numeroAleatorio < numeroRecogido){
+                    alert("El número es menor")
+                }else alert ("El número es mayor");
+            }else {
+                alert("Acertaste!");
+                acierto = true;
+            }
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+            let fecha = prompt ("Introduce una fecha en formato DD/MM/YYYY");
+            let partes = fecha.split('/');
+            let dia = partes[0];
+            let mes = partes[1]-1;
+            let anyo = partes[2];
+
+            let fechaFormateada = new Date(anyo, mes, dia);
+
+            let formato = { day: 'numeric',month: 'long', year: 'numeric'};
+            let fechaSalida = fechaFormateada.toLocaleDateString('es-ES', formato);
+            alert (fechaSalida);
+
+    </script>
+</body>
+</html>
