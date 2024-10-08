@@ -1,0 +1,40 @@
+body {
+    background-color: rgba(65, 49, 44, 0.808);
+}
+div { 
+    aspect-ratio: 1/1;   
+    width: 100%;         
+    margin: 20px;
+} 
+table {
+    margin: auto;
+    margin-top: 11%;
+    height: 300px; 
+    width: 100%; 
+    text-align: center;   
+    border-collapse: separate; 
+    border-spacing: 20px;
+    padding-right: 25px;
+}   
+#rojo {
+    background-color: rgb(252, 46, 46);
+}
+#azul {
+    background-color: rgb(0, 102, 255);
+}
+#verde {
+    background-color: rgb(0, 175, 0);
+}
+#negro {
+    background-color: rgb(49, 49, 49);
+}
+.sombra {
+    box-shadow: 10px 10px 10px;
+}
+.circulo {
+    border-radius: 50%;
+}
+.final {
+    box-shadow: inset 10px 10px 10px;
+    border-radius: 50%;
+}

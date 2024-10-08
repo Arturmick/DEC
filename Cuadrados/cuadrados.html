@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cuadrados.css">
+    <script type="text/JavaScript" src='cuadrados.js'></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><div id="rojo" class="sombra" ondblclick="final(this)" onmouseover="circulo(this)" onmouseout="cuadrado(this)" onmouseup="sombra(this)" onmousedown="sombra(this)"></div></td>
+            <td><div id="azul" class="sombra" ondblclick="final(this)" onmouseover="circulo(this)" onmouseout="cuadrado(this)" onmouseup="sombra(this)" onmousedown="sombra(this)"></div></td>
+            <td><div id="verde" class="sombra" ondblclick="final(this)" onmouseover="circulo(this)" onmouseout="cuadrado(this)" onmouseup="sombra(this)" onmousedown="sombra(this)"></div></td>
+            <td><div id="negro" class="sombra" ondblclick="final(this)" onmouseover="circulo(this)" onmouseout="cuadrado(this)" onmouseup="sombra(this)" onmousedown="sombra(this)"></div></td>
+        </tr>
+        <tr>
+            <td><button onclick="eliminar(this, rojo)" class="eliminarRojo">Eliminar</button></td>
+            <td><button onclick="eliminar(this, azul)" class="eliminarAzul">Eliminar</button></td>
+            <td><button onclick="eliminar(this, verde)" class="eliminarVerde">Eliminar</button></td>
+            <td><button onclick="eliminar(this, negro)" class="eliminarNegro">Eliminar</button></td>
+        </tr>
+    </table>
+</body>
+</html>
