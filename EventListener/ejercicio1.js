@@ -7,14 +7,19 @@ function empezar() {
 }
 
 function editar(){
-    console.log("editar");
-    console.log(this.parentNode.parentNode.id);
     
     let idPadre = this.parentNode.parentNode.id;
     let selector = "#" + idPadre + " + " + " tr";
-    console.log(selector);
+    
     let inputs = document.querySelector(selector).querySelectorAll("input");
-    console.log(inputs);
+
+    if(!inputs[0].disabled){
+        confirm("¿Deseas guardar el resultado?");
+        inputs[0].disabled = true;
+        inputs[1].disabled = true;
+        inputs[2].disabled = true;
+        return;
+    }
 
     inputs[0].disabled = false;
     inputs[1].disabled = false;
