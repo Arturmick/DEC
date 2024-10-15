@@ -37,7 +37,7 @@ function escribirPantalla() {
     
     if(((!regex.test(pantalla.value) || texto.search(regex) === -1) && texto != "C")) {
 
-        if(pantalla.value == 0) {
+        if(pantalla.value == 0 && !regex.test(texto) ) {
 
             pantalla.value = "";
 
@@ -52,9 +52,7 @@ function escribirPantalla() {
             pantalla.value = resultado;
 
         }else {
-
             pantalla.value += this.innerText;
-
         }
         if(pantalla.value == ""){
 
