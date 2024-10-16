@@ -2,6 +2,7 @@ window.onload = empezar;
 let pantalla = "";
 let simboloCalculo = false;
 let regex = /[+\-x%=*\/]$/;
+let regexTeclado = /[123456789.,+\-x%=*\/]/;
 
 function empezar() {
 
@@ -12,16 +13,22 @@ function empezar() {
     let botones = document.querySelectorAll(".boton");
 
     botones.forEach(element => {
-        element.addEventListener("mousedown", cambioSombra);
-        element.addEventListener("mouseup", cambioSombra);
+        element.addEventListener("mousedown", anyadirSombra);
+        element.addEventListener("mouseup", quitarSombra);
         element.addEventListener("click",escribirPantalla);
+        element.addEventListener("keydown",escribirPantalla);
     });
     
 }
 
-function cambioSombra() {
+function anyadirSombra() {
     console.log("entra");
-    this.classList.toggle("sombra");
+    this.classList.remove("sombra");
+    this.classList.add("sombra");
+}
+function quitarSombra() {
+    console.log("entra");
+    this.classList.remove("sombra");    
 }
 
 function escribirPantalla() {
@@ -51,6 +58,8 @@ function escribirPantalla() {
             let resultado = eval(pantalla.value.replace("x","*"));
             pantalla.value = resultado;
 
+        }else if (texto == "."){
+            //que solo se pueda meter el punto nua vez en todo el texto
         }else {
             pantalla.value += this.innerText;
         }
@@ -63,6 +72,17 @@ function escribirPantalla() {
     }
         
 }
+
+function analizarBoton() {
+
+    
+}
+
+function borrarPantalla() {
+
+}
+
+
 
 
 
