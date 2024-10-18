@@ -3,12 +3,13 @@ let pantalla = "";
 let simboloCalculo = false;
 let regex = /[+\-x%=*\/]$/;
 let regexTeclado = /[123456789.,+\-x%=*\/]/;
+let regexNumeros = /[1234567890]$/;
 
 function empezar() {
 
     pantalla =  document.querySelector('.pantalla input');
 
-    console.log("entra");
+   
 
     let botones = document.querySelectorAll(".boton");
 
@@ -22,29 +23,32 @@ function empezar() {
 }
 
 function anyadirSombra() {
-    console.log("entra");
+   
     this.classList.remove("sombra");
     this.classList.add("sombra");
 }
 function quitarSombra() {
-    console.log("entra");
+    
     this.classList.remove("sombra");    
 }
 
 function escribirPantalla() {
 
-    let texto = this.innerText;       
+    let texto = this.innerText;  
+    let tamañoPantalla = 11;
+           
     
     if(texto == "C"){
         
         pantalla.value = 0; 
-        simboloCalculo = false;  
-             
     }
     
     if(((!regex.test(pantalla.value) || texto.search(regex) === -1) && texto != "C")) {
 
-        if(pantalla.value == 0 && !regex.test(texto) ) {
+        if(pantalla.value.search(regex) !== -1){
+            simboloCalculo = true;
+        }
+        if(pantalla.value == 0 && !regex.test(texto)) {
 
             pantalla.value = "";
 
@@ -54,13 +58,37 @@ function escribirPantalla() {
             pantalla.value = pantalla.value.slice(0,-1);
 
         }else if(texto == "="){
-
+            
             let resultado = eval(pantalla.value.replace("x","*"));
+
+            if(resultado.toString().length > tamañoPantalla){
+                resultado = "Too much";
+            }
+
             pantalla.value = resultado;
 
-        }else if (texto == "."){
-            //que solo se pueda meter el punto nua vez en todo el texto
+        }else if (texto == "." || texto == ","){
+                    
+            if (pantalla.value.includes(".")){
+
+                if(simboloCalculo == true && pantalla.value.search(regexNumeros) !== -1){
+                    pantalla.value += this.innerText;
+                    simboloCalculo = false;
+                }
+                
+            }else if(pantalla.value == "") {
+
+            }else {
+                pantalla.value += ".";
+            }
+            
+            //que solo se pueda meter el punto una vez en todo el texto
+        }else if (texto == "()"){
+            
+            pantalla.value = "(" + pantalla.value + ")";
+
         }else {
+
             pantalla.value += this.innerText;
         }
         if(pantalla.value == ""){
