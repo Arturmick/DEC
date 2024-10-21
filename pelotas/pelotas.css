@@ -1,0 +1,60 @@
+body {
+    text-align: center;
+}
+#cronometro{
+    text-align: center;
+    font-size: xx-large;
+}
+.marcador{
+    text-align: center;
+}
+.marcador > div {    
+    display: inline-block;
+    width: 200px;    
+    padding: 20px; 
+    color: white;
+    border-radius: 10px;
+    font-size: xx-large; 
+}
+#menu {
+    background-color: rgb(228, 228, 228);
+    margin-top: 10px;
+    padding-bottom: 20px;
+}
+#menu > div {
+    padding:10px;
+}
+#vacio {
+    height: 200px;
+}
+#marcadorRojo {
+    background-color: red;
+    text-align: left;
+}
+#marcadorAzul {
+    background-color: blue;
+    text-align: right;
+}
+.botonEliminar {
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 5px;
+    cursor:pointer;
+}
+#eliminar1 {
+    background-color: rgb(2, 2, 122);
+    color: white;
+}
+#eliminar2 {
+    background-color: none;
+}
+#jugar {
+    cursor:pointer;
+    border: 1px solid black;
+    width: 40PX;    
+    margin-left: 46.9%; 
+    margin-top: 5px;  
+    border-radius: 5px;  
+}

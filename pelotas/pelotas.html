@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pelotas.css">
+    <script src="cronometro.js"></script>
+    <title>Pelotas</title>
+</head>
+<body>
+    <div>
+        <div id="cronometro">00:00:00</div>
+        <div class="marcador">
+            <div id="marcadorAzul">0</div>
+            <div id="marcadorRojo">0</div>
+        </div>
+        
+    </div>
+    <div id="menu">
+        <div id="vacio"></div>
+        <div>Selecciona el numero de pelotas</div>
+        <div><select name="numeroBolas">
+            <option>10</option>
+            <option>50</option>
+            <option>100</option>
+            <option>500</option>
+            </select>
+        </div>
+        <div>Elige el modo:</div>
+        <div class="botonEliminar" id="eliminar1">Eliminar todas las pelotas</div>
+        <div class="botonEliminar" id="eliminar2">Eliminar un solo color</div>
+        <div id="jugar">Jugar</div>
+    </div>
+</body>
+</html>
