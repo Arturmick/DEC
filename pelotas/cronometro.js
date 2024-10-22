@@ -10,6 +10,24 @@ window.onload = function() {
     cronometro = document.getElementById('cronometro');
 
     document.getElementById('jugar').addEventListener('click',cronometrar);
+    document.getElementById('jugar').addEventListener('click',juego);    
+    document.getElementById('eliminar1').addEventListener('click',cambiarColorBoton);
+    document.getElementById('eliminar2').addEventListener('click',cambiarColorBoton);
+
+}
+function juego() {
+    let hijo = document.getElementById("#menu");
+    let padre = //por qauí
+}
+
+function cambiarColorBoton() {
+    this.classList.remove("seleccionado");
+    this.classList.add("seleccionado");
+    if(this.id == "eliminar1") {
+        document.getElementById('eliminar2').classList.remove("seleccionado");
+    }else {
+        document.getElementById('eliminar1').classList.remove("seleccionado");
+    }
 }
 
 /**********************CRONOMETRO***************************/

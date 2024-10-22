@@ -16,7 +16,7 @@ body {
     border-radius: 10px;
     font-size: xx-large; 
 }
-#menu {
+#areaJuego {
     background-color: rgb(228, 228, 228);
     margin-top: 10px;
     padding-bottom: 20px;
@@ -43,12 +43,9 @@ body {
     margin: 5px;
     cursor:pointer;
 }
-#eliminar1 {
+.seleccionado {
     background-color: rgb(2, 2, 122);
     color: white;
-}
-#eliminar2 {
-    background-color: none;
 }
 #jugar {
     cursor:pointer;
@@ -58,3 +55,4 @@ body {
     margin-top: 5px;  
     border-radius: 5px;  
 }
+
