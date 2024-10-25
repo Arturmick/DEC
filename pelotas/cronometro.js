@@ -1,23 +1,33 @@
+let numeroBolas = 10;
+let circulos;
+
 let horas = 0;
-
 let minutos = 0;
-
 let segundos = 0;
-
 let cronometro;
 
 window.onload = function() {
-    cronometro = document.getElementById('cronometro');
+    circulos = document.getElementsByClassName('circulo');    
+    cronometro = document.getElementById('cronometro'); 
 
-    document.getElementById('jugar').addEventListener('click',cronometrar);
+    cargarEventos();
+}
+
+function cargarEventos() {
+
     document.getElementById('jugar').addEventListener('click',juego);    
     document.getElementById('eliminar1').addEventListener('click',cambiarColorBoton);
     document.getElementById('eliminar2').addEventListener('click',cambiarColorBoton);
-
+    document.getElementById('numeroBolas').addEventListener('change',bolas);
+    for (let i = 0; i < circulos.length; i++) {
+        circulos[i].addEventListener('dblclick', eliminarBola);
+    }    
 }
+
 function juego() {
-    let hijo = document.getElementById("#menu");
-    let padre = //por qauí
+    cronometrar();
+    menu.remove();
+    creaCirculos();    
 }
 
 function cambiarColorBoton() {
@@ -28,12 +38,45 @@ function cambiarColorBoton() {
     }else {
         document.getElementById('eliminar1').classList.remove("seleccionado");
     }
+}   
+
+/********************CREA PELOTAS **************************/
+
+function bolas(){
+    numeroBolas = parseInt(numeroBolas.value);
+} 
+
+function creaCirculos(){
+    
+    for (let i = 0; i < numeroBolas; i++) {
+        console.log("entra");
+        let circulo = document.createElement('div');
+        
+        circulo.classList.add('circulo');
+
+        let x = parseInt(Math.random() * (areaJuego.clientWidth - 50));
+        let y = parseInt(Math.random() * (areaJuego.clientHeight - 50));
+
+       //alto = ancho = parseInt(Math.random(10,50));
+
+        circulo.style.left = `${x}px`;
+        circulo.style.top = `${y}px`;
+        //circulo.style.width = `${alto}px`;
+        //circulo.style.height = `${ancho}px`;
+
+        areaJuego.appendChild(circulo); 
+    }  
+}
+
+/**********************ELIMINA PELOTAS **********************/
+
+function eliminarBola(){
+    this.remove();
 }
 
 /**********************CRONOMETRO***************************/
 
 //Comienza a cronometrar
-
 
 function cronometrar(){
 
