@@ -19,16 +19,14 @@ window.onload = function() {
 
 function cargarEventos() {
 
-    document.getElementById('jugar').addEventListener('click',juego);    
+    document.getElementById('jugar').addEventListener('click',menus);    
+    
     document.getElementById('eliminarTodo').addEventListener('click',cambiarColorBoton);
     document.getElementById('eliminarColor').addEventListener('click',cambiarColorBoton);
             
 }
-
-function juego() {
+function menus(){
     bolas();
-
-    cronometrar();
 
     if(eliminarTodo.classList.contains("seleccionado")) {
         juegoVar = 1;
@@ -36,16 +34,15 @@ function juego() {
         juegoVar = 2;
     }
 
-      
-
-    
-    
     menu.remove();
-
     elegirColor();
+}
+function juego() { 
+
+    cronometrar();
     
     creaCirculos();
-    
+
     for (let i = 0; i < circulos.length; i++) {
         circulos[i].addEventListener('dblclick', eliminarBola);
         circulos[i].addEventListener('dblclick', jugando);
@@ -111,8 +108,10 @@ function elegirColor() {
     menuColor.classList.add('menuColor');
     areaJuego.appendChild(menuColor);
     
-    document.getElementById('botonRojo').addEventListener('click', colorPelotas = 1);
-    document.getElementById('botonAzul').addEventListener('click', colorPelotas = 2);
+    document.getElementById('botonRojo').addEventListener('click', () => colorPelotas = 1);
+    document.getElementById('botonRojo').addEventListener('click', juego);
+    document.getElementById('botonAzul').addEventListener('click', () => colorPelotas = 2);
+    document.getElementById('botonAzul').addEventListener('click', juego);
    
 }
 function creaCirculos(){
