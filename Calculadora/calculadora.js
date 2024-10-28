@@ -1,25 +1,115 @@
 window.onload = empezar;
 let pantalla = "";
 let simboloCalculo = false;
-let regex = /[+\-x%=*\/]$/;
-let regexTeclado = /[123456789.,+\-x%=*\/]/;
-let regexNumeros = /[1234567890]$/;
+let regexAcabaEnOperando = /[+\-x%=*\/]$/;
+let regexOperando = /[-x%*]/;
+let regexTeclado = /[123456789.,()+\-x%=*\/]/;
+let regexAcabaEnNumero = /[1234567890]$/;
 
 function empezar() {
 
     pantalla =  document.querySelector('.pantalla input');
-
-   
 
     let botones = document.querySelectorAll(".boton");
 
     botones.forEach(element => {
         element.addEventListener("mousedown", anyadirSombra);
         element.addEventListener("mouseup", quitarSombra);
-        element.addEventListener("click",escribirPantalla);
-        element.addEventListener("keydown",escribirPantalla);
+        element.addEventListener("click",procesarEntrada);        
     });
+
+    document.addEventListener("keydown", function(event) {
+
+        const key = event.key;
+        const isShiftPressed = event.shiftKey;
+
+        if (regexTeclado.test(key)) { 
+
+            procesarEntrada.call({ innerText: key });
+
+        } else if (key === 'Backspace') {
+            
+            procesarEntrada.call({ innerText: "\u00AB" });
+
+        } else if (key === 'Enter') {
+            
+            procesarEntrada.call({ innerText: "=" });
+
+        } else if (key === 'Escape') {
+            
+            procesarEntrada.call({ innerText: "C" });
+
+        } else if (isShiftPressed) {
+            switch (key) {
+                case '8':
+                    procesarEntrada.call({ innerText: "()" });
+                    break;
+                case '9':
+                    procesarEntrada.call({ innerText: "()" });
+                    break;
+                case '0':
+                    procesarEntrada.call({ innerText: "=" });
+                    break;
+                case '5':
+                    procesarEntrada.call({ innerText: "%" });
+                    break;
+                case '7':
+                    procesarEntrada.call({ innerText: "/" });
+                    break;
+                default:
+                    break; 
+            }
+        }
+    });
+}
+
+function procesarEntrada() {
+
+    let texto = this.innerText;  
+               
+    if(texto == "C"){
+        
+        borrarPantalla();
+    }
     
+    if(analizarBoton(texto)) {
+
+        if(pantalla.value.search(regexAcabaEnOperando) !== -1){
+            
+            simboloCalculo = true;
+
+        }
+        if(pantalla.value == 0 && !regexAcabaEnOperando.test(texto)) {
+
+            pantalla.value = "";
+
+        }
+        if(texto == "\u00AB"){
+
+            borrarCaracter();
+
+        }else if(texto == "="){ 
+
+            calcularResultado();           
+
+        }else if (texto == "." || texto == ","){
+
+            anyadirDecimal(this.innerText);                       
+        
+        }else if (texto == "()"){
+
+            escribirParentesis();  
+
+        }else {
+
+            escribirEnPantalla(texto);   
+
+        }
+        if(pantalla.value == ""){
+
+            borrarPantalla();            
+        }        
+    }        
 }
 
 function anyadirSombra() {
@@ -31,83 +121,74 @@ function quitarSombra() {
     
     this.classList.remove("sombra");    
 }
+function analizarBoton(texto){
 
-function escribirPantalla() {
-
-    let texto = this.innerText;  
-    let tamañoPantalla = 11;
-           
-    
-    if(texto == "C"){
-        
-        pantalla.value = 0; 
+    if((!regexAcabaEnOperando.test(pantalla.value) || texto.search(regexAcabaEnOperando) === -1) && texto != "C"){
+        return true;
+    }else{
+        return false;
     }
+}
+function borrarPantalla(){
+
+    pantalla.value = 0; 
+}
+function borrarCaracter(){
+
+    pantalla.value = pantalla.value.slice(0,-1);
+}
+function calcularResultado(){
     
-    if(((!regex.test(pantalla.value) || texto.search(regex) === -1) && texto != "C")) {
+    const tamañoPantalla = 11;
+    let resultado = "";  
 
-        if(pantalla.value.search(regex) !== -1){
-            simboloCalculo = true;
-        }
-        if(pantalla.value == 0 && !regex.test(texto)) {
+    if(pantalla.value.includes("%")){
 
-            pantalla.value = "";
+        resultado = pantalla.value;
 
-        }
-        if(texto == "\u00AB"){
+        resultado = resultado.replace(/(\d+(\.\d+)?)%(\d+(\.\d+)?)/g, function(match, p1, p2, p3) {
+            return `(${p1} / 100) * ${p3}`;
+        });
 
-            pantalla.value = pantalla.value.slice(0,-1);
+        resultado = eval(resultado.replace("x","*"));
 
-        }else if(texto == "="){
-            
-            let resultado = eval(pantalla.value.replace("x","*"));
+    }else {
 
-            if(resultado.toString().length > tamañoPantalla){
-                resultado = "Too much";
-            }
+        resultado = eval(pantalla.value.replace("x","*"));
+    }            
 
-            pantalla.value = resultado;
-
-        }else if (texto == "." || texto == ","){
-                    
-            if (pantalla.value.includes(".")){
-
-                if(simboloCalculo == true && pantalla.value.search(regexNumeros) !== -1){
-                    pantalla.value += this.innerText;
-                    simboloCalculo = false;
-                }
-                
-            }else if(pantalla.value == "") {
-
-            }else {
-                pantalla.value += ".";
-            }
-            
-            //que solo se pueda meter el punto una vez en todo el texto
-        }else if (texto == "()"){
-            
-            pantalla.value = "(" + pantalla.value + ")";
-
-        }else {
-
-            pantalla.value += this.innerText;
-        }
-        if(pantalla.value == ""){
-
-            pantalla.value = 0;
-            
-        }
-        
+    if(resultado.toString().length > tamañoPantalla){
+        resultado = "Too much";
     }
-        
+
+    pantalla.value = resultado;  
 }
-
-function analizarBoton() {
-
+function anyadirDecimal(texto){
     
+    if(pantalla.value == "") {
+        return;
+    }
+            
+    if (pantalla.value.includes(".")){
+
+        if(simboloCalculo == true && pantalla.value.search(regexAcabaEnNumero) !== -1){
+
+           escribirEnPantalla(texto);
+
+            simboloCalculo = false;
+        }                
+    }else {
+
+        escribirEnPantalla(".");
+    } 
 }
+function escribirParentesis(){
 
-function borrarPantalla() {
+    escribirEnPantalla("(" + pantalla.value + ")");    
+}
+function escribirEnPantalla(movida){
 
+    pantalla.value += movida;
 }
 
 
