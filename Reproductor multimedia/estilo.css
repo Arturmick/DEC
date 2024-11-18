@@ -1,0 +1,79 @@
+body {
+    background-color:beige;
+    font-family: Arial, sans-serif;   
+    height: 100vh;
+}
+#cabecera{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    font-size: xx-large;
+    background-color: rgb(245, 194, 100);
+}
+#cabecera *{
+    width: auto;
+    height: 100%;
+}
+#reproductor {
+    margin-left: 10%;
+    margin-top: 200px;    
+    background-color: beige;
+    position: fixed;
+    
+    width: 50%;
+    height: 3000px;
+}
+#reproductor * {
+    width: 100%;
+    height: auto;
+}
+#videoElement {
+    width: 100%;
+    height: auto;
+}
+#controles {
+    background-color: #fff3dd00;
+    margin-top: 10px;
+    width: 100%;
+    height: 220px;
+    clear: both;
+    display: flex;
+    gap: 3%;    
+}
+#controles * {
+    background-color: rgb(253, 191, 78); 
+    height: 100%;
+    width: auto;  
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    
+}
+#controles img {
+    width: 40%;
+    height: auto; 
+    cursor: pointer;
+}
+
+#carrusel {    
+    margin-top: 200px;
+    margin-right: 10%;
+    width: 20%;    
+    float: right; 
+}
+#carrusel * {
+    margin-bottom: 5px;
+    background-color: bisque;
+    display: block;
+    width: 100%;
+    height: auto;
+} 
+#carrusel img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+}   
+.sombra {
+    box-shadow: 5px 5px 5px #888888;
+}
