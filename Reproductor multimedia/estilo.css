@@ -7,8 +7,12 @@ body {
     width: 100%;
     height: 200px;
     display: flex;
+    margin-left: -10px;
+    margin-top: -10px;
+    padding-right: 10px;
     justify-content: space-between;
     font-size: 50px;
+    position: fixed;
     background-color: rgb(245, 194, 100);
 }
 #cabecera *{
@@ -22,7 +26,7 @@ body {
 }
 #reproductor {
     margin-left: 10%;
-    margin-top: 200px;    
+    margin-top: 400px;    
     background-color: beige;
     position: fixed;    
     width: 50%;
@@ -40,37 +44,42 @@ body {
     display: flex;
     justify-content: center;  
 }
-#videoElement:hover + #barraCargaVacia,
-#barraCargaVacia:hover {
+#videoElement:hover + #barrasCarga,
+#barraCargaVacia:hover,#barraCargaLlena:hover,
+#scrubber:hover + #barrasCarga {
     opacity: 100%;
     transition: 0.5s;
 }
+
+#barraCargaVacia, #barraCargaLlena {
+    height: 25px;
+    z-index: 2;
+    margin-left: 2%; 
+    position: relative; 
+        
+}
 #barraCargaVacia {
-    width: 95%;
-    height: 30px;
-    background-color: #a8a8a8;  
+    width: 96%;    
+    background-color: #a8a8a8;      
+    transition: 0.5s; 
+    opacity: 50%; 
     top: -60px;  
-    position: relative;
-    margin-left: 2%;
-    z-index: 2;    
-    transition: 0.5s;    
 }
 #barraCargaLlena {
-    width: 0%;
-    height: 30px;
+    width: 0%;    
     background-color: #ff0000;
-    position: relative;
+    opacity:100%;   
     z-index: 3;
-    
+    top: -85px;  
 }
 #scrubber {
     border-radius: 50%;
-    height: 60px;
+    height: 50px;
     background-color: #ff0000;
     width: 50px;
     z-index: 4;
     position: relative;
-    top: -45px;
+    top: -15px;
     cursor: pointer;
     opacity: 0%;    
 }
@@ -110,7 +119,7 @@ body {
 }
 
 #carrusel {    
-    margin-top: 200px;
+    margin-top: 400px;
     margin-right: 10%;
     width: 20%;    
     float: right; 

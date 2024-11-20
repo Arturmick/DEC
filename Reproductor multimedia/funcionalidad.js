@@ -23,8 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (video.paused) {
 
-            document.getElementById("barraCargaVacia").classList.remove("oculto");
-            document.getElementById("barraCargaVacia").classList.add("visible");
+            document.getElementById("barrasCarga").classList.remove("oculto");
+            document.getElementById("barrasCarga").classList.add("visible");
+            
             
             playButton.innerHTML = '<img src="./videos/pausa.png" alt="Pause">';
                      
@@ -52,22 +53,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     rewindButton.addEventListener("click", () => {
-        document.getElementById("barraCargaVacia").classList.remove("oculto");
-        document.getElementById("barraCargaVacia").classList.add("visible");
+        document.getElementById("barrasCarga").classList.remove("oculto");
+        document.getElementById("barrasCarga").classList.add("visible");
         video.currentTime -= 10;
         tiempoClick = video.currentTime;
     });
 
     forwardButton.addEventListener("click", () => {
-        document.getElementById("barraCargaVacia").classList.remove("oculto");
-        document.getElementById("barraCargaVacia").classList.add("visible");
+        document.getElementById("barrasCarga").classList.remove("oculto");
+        document.getElementById("barrasCarga").classList.add("visible");
         video.currentTime += 10;
         tiempoClick = video.currentTime;
     });
 
     restartButton.addEventListener("click", () => {
-        document.getElementById("barraCargaVacia").classList.remove("oculto");
-        document.getElementById("barraCargaVacia").classList.add("visible");
+        document.getElementById("barrasCarga").classList.remove("oculto");
+        document.getElementById("barrasCarga").classList.add("visible");
         video.currentTime = 0;
         playButton.innerHTML = '<img src="./videos/pausa.png" alt="Pause">';
         video.play();
@@ -89,13 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let porcentaje = (tiempoActual / duracion) * 100;             
         
         if(tiempoActual > 6 && principioDelVideo == true){
-            document.getElementById("barraCargaVacia").classList.remove("visible");
-            document.getElementById("barraCargaVacia").classList.add("oculto");
+            document.getElementById("barrasCarga").classList.remove("visible");
+            document.getElementById("barrasCarga").classList.add("oculto");
             principioDelVideo = false;
         }
         if (!principioDelVideo && (tiempoActual - tiempoClick) >= 6) {
-            document.getElementById("barraCargaVacia").classList.remove("visible");
-            document.getElementById("barraCargaVacia").classList.add("oculto");
+            document.getElementById("barrasCarga").classList.remove("visible");
+            document.getElementById("barrasCarga").classList.add("oculto");
             principioDelVideo = false;
         }
         
