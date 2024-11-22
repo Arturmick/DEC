@@ -45,8 +45,7 @@ body {
     justify-content: center;  
 }
 #videoElement:hover + #barrasCarga,
-#barraCargaVacia:hover,#barraCargaLlena:hover,
-#scrubber:hover + #barrasCarga {
+#barrasCarga:hover{
     opacity: 100%;
     transition: 0.5s;
 }
@@ -113,11 +112,8 @@ body {
 }
 #controles img {
     width: 40%;
-    height: auto; 
-    
-    
+    height: auto;  
 }
-
 #carrusel {    
     margin-top: 400px;
     margin-right: 10%;
