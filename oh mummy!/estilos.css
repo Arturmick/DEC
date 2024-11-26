@@ -54,13 +54,16 @@ img {
     background-color: black;
     
 }
+#negro {
+    background-color: black;
+}
 #pantalla { 
     display: flex;
     justify-content: center;   
     flex-wrap: nowrap;
     display: grid;     
     grid-template-columns: repeat(21, 60px);
-    grid-template-rows: repeat(13, 60px);
+    grid-template-rows: repeat(13, 60px);    
 }
 
 .celda {
@@ -70,8 +73,87 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
 }
 
 .pasillo {
     background-color: rgb(0, 0, 0);
+    background-size: 100% 100%;
+    overflow: visible;
+}
+.personaje1 {
+    background-image: url(Fotos/personaje1.png);   
+
+}
+.personaje2 {
+    background-image: url(Fotos/personaje2.png);
+}
+.personaje3{
+    background-image: url(Fotos/personaje3.png);
+}
+.personaje4{
+    background-image: url(Fotos/personaje4.png);
+}
+.personaje1r {
+    background-image: url(Fotos/personaje1r.png);   
+
+}
+.personaje2r {
+    background-image: url(Fotos/personaje2r.png);
+}
+.personaje3r{
+    background-image: url(Fotos/personaje3r.png);
+}
+.personaje4r{
+    background-image: url(Fotos/personaje4r.png);
+}
+.momia1{
+    background-image: url(Fotos/momia1.png);
+}
+.momia2{
+    background-image: url(Fotos/momia2.png);
+}
+.momia3{
+    background-image: url(Fotos/momia3.png);
+}
+.momia4{
+    background-image: url(Fotos/momia4.png);
+}
+
+@keyframes entrarPorIzquierda {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes entrarPorDerecha {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes entrarPorArriba {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes entrarPorAbajo {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.entrarPorIzquierda {
+    animation: entrarPorIzquierda 0.3s forwards;
+}
+
+.entrarPorDerecha {
+    animation: entrarPorDerecha 0.3s forwards;
+    z-index: 1;
+}
+
+.entrarPorArriba {
+    animation: entrarPorArriba 0.3s forwards;
+}
+
+.entrarPorAbajo {
+    animation: entrarPorAbajo 0.3s forwards;
+    z-index: 1;
 }
