@@ -1,10 +1,7 @@
 body {
     background-color: rgb(228, 228, 2);
 }
-img {
-    width: 60px;
-    height: 60px;
-}
+
 #tablero {
     display: flex;
     flex-wrap: wrap;
@@ -24,7 +21,7 @@ img {
     font-size: 40px;
     
 }
-.marcador1 {    
+#marcador1 {    
     width: 230px;
     height: 50px;
     background-color: black;
@@ -33,27 +30,27 @@ img {
     text-align: center;
     
 }
-.marcador2 {    
+#marcador2 {    
     width: 230px;
     height: 50px;
     background-color: black;
     color: white;
     font-size: 35px;
-    align-content: center;
-    
+    align-content: center;    
 }
-.marcador2 img {
+#marcador2 img {
     width: 38px;
     height: 50px;
 }
-#salida {
+
+#salida {    
     margin-left: 100px;
     margin-right: 90px;
     width: 60px;
-    height: 60px;
-    background-color: black;
-    
+    height: 60px;     
+    background-color: black;    
 }
+
 #negro {
     background-color: black;
 }
@@ -73,7 +70,139 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: visible;
+    overflow: hidden;
+    z-index: 2;
+}
+.llave11 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave11.png);
+    background-size: cover;
+    
+}   
+.llave12 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave12.png);
+    background-size: cover;
+    
+}
+.llave13 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave13.png);
+    background-size: cover;
+    
+}
+.llave21 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave21.png);
+    background-size: cover;
+  
+}
+.llave22 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave22.png);
+    background-size: cover;
+   
+}
+.llave23 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/llave23.png);
+    background-size: cover;
+    
+}    
+.cofre11 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre11.png);
+    background-size: cover;
+}
+.cofre12 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre12.png);
+    background-size: cover;
+}
+.cofre13 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre13.png);
+    background-size: cover;
+}
+.cofre21 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre21.png);
+    background-size: cover;
+}
+.cofre22 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre22.png);
+    background-size: cover;
+}
+.cofre23 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/cofre23.png);
+    background-size: cover;
+}
+.sarcofago11 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago11.png);
+    background-size: cover;
+}
+.sarcofago12 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago12.png);
+    background-size: cover;
+}
+.sarcofago13 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago13.png);
+    background-size: cover;
+}
+.sarcofago21 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago21.png);
+    background-size: cover;
+}
+.sarcofago22 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago22.png);
+    background-size: cover;
+}
+.sarcofago23 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/sarcofago23.png);
+    background-size: cover;
+}
+.potion11 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion11.png);
+    background-size: cover;
+}
+.potion12 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion12.png);
+    background-size: cover;
+}
+.potion13 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion13.png);
+    background-size: cover;
+}
+.potion21 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion21.png);
+    background-size: cover;
+}
+.potion22 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion22.png);
+    background-size: cover;
+}
+.potion23 {
+    background-color: wheat;
+    background-image: url(Fotos/premio/potion23.png);
+    background-size: cover;
+}
+
+.momiaPremio21 {
+    background-image: url(Fotos/premio/negro.jpg);
+    background-size: cover;    
 }
 
 .pasillo {
@@ -81,43 +210,93 @@ img {
     background-size: 100% 100%;
     overflow: visible;
 }
+.pasos1{
+    background-image: url(Fotos/pasos/pasos1.png);
+    overflow: hidden;
+    
+}
+.pasos2{
+    background-image: url(Fotos/pasos/pasos2.png);
+    overflow: hidden;
+    
+}
+.pasos3{
+    background-image: url(Fotos/pasos/pasos3.png);
+    overflow: hidden;
+    
+}
+.pasos4{
+    background-image: url(Fotos/pasos/pasos4.png);
+    overflow: hidden;
+}
 .personaje1 {
-    background-image: url(Fotos/personaje1.png);   
-
+    background-image: url(Fotos/personaje/personaje1.png);   
+   
 }
 .personaje2 {
-    background-image: url(Fotos/personaje2.png);
+    background-image: url(Fotos/personaje/personaje2.png);
+    
 }
 .personaje3{
-    background-image: url(Fotos/personaje3.png);
+    background-image: url(Fotos/personaje/personaje3.png);
+    
 }
 .personaje4{
-    background-image: url(Fotos/personaje4.png);
+    background-image: url(Fotos/personaje/personaje4.png);
+   
 }
 .personaje1r {
-    background-image: url(Fotos/personaje1r.png);   
-
+    background-image: url(Fotos/personaje/personaje1r.png);   
+    
 }
 .personaje2r {
-    background-image: url(Fotos/personaje2r.png);
+    background-image: url(Fotos/personaje/personaje2r.png);
+    
 }
 .personaje3r{
-    background-image: url(Fotos/personaje3r.png);
+    background-image: url(Fotos/personaje/personaje3r.png);
+    
 }
 .personaje4r{
-    background-image: url(Fotos/personaje4r.png);
+    background-image: url(Fotos/personaje/personaje4r.png);
+    
 }
 .momia1{
-    background-image: url(Fotos/momia1.png);
+    background-image: url(Fotos/momia/momia1.png);
+    
 }
 .momia2{
-    background-image: url(Fotos/momia2.png);
+    background-image: url(Fotos/momia/momia2.png);
+   
 }
 .momia3{
-    background-image: url(Fotos/momia3.png);
+    background-image: url(Fotos/momia/momia3.png);
+    
 }
 .momia4{
-    background-image: url(Fotos/momia4.png);
+    background-image: url(Fotos/momia/momia4.png);
+    
+}
+.momia1r{
+    background-image: url(Fotos/momia/momia1r.png);
+    
+}
+.momia2r{
+    background-image: url(Fotos/momia/momia2r.png);
+    
+}
+.momia3r{
+    background-image: url(Fotos/momia/momia3r.png);
+    
+}
+.momia4r{
+    background-image: url(Fotos/momia/momia4r.png);
+    
+}
+
+.oculto {
+    background-image: none;
+    background-color: rgb(82, 29, 29);
 }
 
 @keyframes entrarPorIzquierda {
@@ -142,18 +321,24 @@ img {
 
 .entrarPorIzquierda {
     animation: entrarPorIzquierda 0.3s forwards;
+    z-index: 3;
 }
 
 .entrarPorDerecha {
     animation: entrarPorDerecha 0.3s forwards;
-    z-index: 1;
+    z-index: 3;
 }
 
 .entrarPorArriba {
     animation: entrarPorArriba 0.3s forwards;
+    z-index: 3;
 }
 
 .entrarPorAbajo {
     animation: entrarPorAbajo 0.3s forwards;
-    z-index: 1;
+    z-index: 3;
+}
+img {
+    width: 70px;
+    height: 60px;
 }
