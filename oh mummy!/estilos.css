@@ -31,7 +31,7 @@ body {
     
 }
 #marcador2 {    
-    width: 230px;
+    width: 290px;
     height: 50px;
     background-color: black;
     color: white;
@@ -39,12 +39,14 @@ body {
     align-content: center;    
 }
 #marcador2 img {
-    width: 38px;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 50px;
     height: 50px;
 }
 
 #salida {    
-    margin-left: 100px;
+    margin-left: 150px;
     margin-right: 90px;
     width: 60px;
     height: 60px;     
