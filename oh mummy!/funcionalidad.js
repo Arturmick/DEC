@@ -35,7 +35,16 @@ let sarcofago = false;
 let puntuacion = 0;
 let reinicio = true;
 
+
+/*let momia = {
+    "x": "1",
+    "y": "0",
+    "velocidad": "1"
+}*/
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    comprobarElementos();
     inicializarVerificacionCasilla(); 
     crearTablero();    
     cargarEventos(); 
@@ -47,7 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
         iniciarMovimientoMomia(i);
         
     }    
+    
 });
+function comprobarElementos() {
+    if (localStorage.getItem('puntuacion') !== null) {
+        puntuacion = parseInt(localStorage.getItem('puntuacion'));
+        marcador1.innerHTML = puntuacion.toString().padStart(8, '0');
+        localStorage.getItem('vidas'); 
+        localStorage.getItem('numeroMomias');
+    }
+}
 
 function cargarEventos() {
     document.addEventListener('click', (evento) => {
@@ -57,7 +75,20 @@ function cargarEventos() {
         
         }
     });
-    
+    document.getElementById('salir').addEventListener('click', () => {
+        if (confirm('¿Estás seguro de que deseas salir del juego?\nLos datos no se guardarán')) {
+            localStorage.clear();
+            window.close();
+        }    
+        
+    });
+    document.getElementById('reiniciar').addEventListener('click', () => {
+        if (confirm('¿Estás seguro de que deseas reiniciar el juego?\nLos datos no se guardarán')) {
+            localStorage.clear();
+            window.location.reload();
+        }    
+        
+    });
     document.addEventListener('keydown', (evento) => {
         if (evento.key === 'ArrowDown' && inicio) {            
             salida.style.backgroundColor = 'rgb(228, 228, 2)';
@@ -67,6 +98,8 @@ function cargarEventos() {
 
             
             inicio = false;
+        } else {
+
         }
         if (evento.key === 'ArrowDown' && !inicio) {
             if (posicionPersonaje.fila < 12 && posicionPersonaje.columna % 4 === 0) {
@@ -135,7 +168,14 @@ function crearTablero() {
         
     }
     colocarElementos();
-    
+    anadirVidas();          
+}
+function anadirVidas() {
+    const img = document.createElement('img');
+    img.src = 'Fotos/vida.png';
+    for (let i = 0; i < vidas; i++) {            
+        marcador2.appendChild(img);
+    }       
 }
 function inicializarVerificacionCasilla() {
     verificacionCasilla = [];
@@ -233,7 +273,7 @@ function comprobarCeldasRodeadas() {
         if ((verificacionCasilla[9][4] == true && verificacionCasilla[bloque.fila][bloque.col] == true && !bloquesTesoros[bloque.index]) 
             && comprobarBloques(bloque.fila, bloque.col)) {
 
-             gestionarPremio(bloque.fila, bloque.col, bloque.index); 
+             gestionarPremio(fila, col, index); 
             
         }
         if ((verificacionCasilla[3][12] == true && verificacionCasilla[bloque.fila][bloque.col] == true && !bloquesTesoros[bloque.index]) 
@@ -456,14 +496,13 @@ function pelea(){
                                 celda.classList.remove('momia1', 'momia2', 'momia3', 'momia4', 'momia1r', 'momia2r', 'momia3r', 'momia4r');
                                 console.log('Muerte a la momia');
                                 clearInterval(intervaloMomia[index]);
-                                posicionMomia.splice(index, 1);
+                                posicionMomia[index] = null;
                                 potion = false;
                             } else {
                                 vidas--;
                                 marcador2.querySelector('img').remove();
                                 celda.classList.remove('personaje1', 'personaje2', 'personaje3', 'personaje4', 'personaje1r', 'personaje2r', 'personaje3r', 'personaje4r');
-                                casillaSalida();
-                                clearInterval(intervaloMomia[index]);
+                                casillaSalida();                                
                             }
                         }
                     });
@@ -489,14 +528,24 @@ function pasarNivel() {
     if (posicionPersonaje.fila === 0 && posicionPersonaje.columna === 10) {
         document.addEventListener('keydown', (evento) => {
             if (evento.key === 'ArrowUp' && reinicio) {                 
-            
-                reiniciarJuego();
+                
+                cambiarNivel();
+                //reiniciarJuego();
                 reinicio = false;
             }
         });
     }
 }
-function reiniciarJuego() {
+
+function cambiarNivel() {
+    localStorage.setItem('puntuacion', puntuacion);
+    localStorage.setItem('vidas', vidas);
+    localStorage.setItem('numeroMomias', numeroMomias++);
+    window.location.reload();
+
+
+}
+/*function reiniciarJuego() {
     
     tablero.forEach(fila => {
         fila.forEach(celda => {
@@ -531,7 +580,7 @@ function reiniciarJuego() {
     
     colocarElementos();    
     casillaSalida();
-    cargarEventos();
+   
     pelea();
        
     for (let i = 0; i <= numeroMomias-1; i++) { // Add multiple mummies
@@ -541,4 +590,13 @@ function reiniciarJuego() {
         
     } 
     
-}
+}*/
+/*localStorage.removeItem('puntuacion');
+localStorage.clear();*/
+
+
+
+//window.location.reload();
+
+localStorage.getItem('puntuacion');
+
