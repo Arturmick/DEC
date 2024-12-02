@@ -1,5 +1,6 @@
 body {
-    background-color: rgb(228, 228, 2);
+    background-image: url(Fotos/fondo2.jpg);
+    background-size: cover;
 }
 
 #tablero {
@@ -8,34 +9,37 @@ body {
     justify-content: center;
 }
 #marcadores {
-    background-color: rgb(228, 228, 2);
+    background-color: rgba(228, 228, 2, 0);
     width: 100%;
     height: auto;
     padding-top: 5px;
     display: flex;
-    justify-content: center;    
+    justify-content: center;  
+    gap: 30px;  
 }
 .letras {
-    color: orange;
+    color:rgb(80, 48, 11);
     font-size: 40px;
+    font-weight: bold;
     
 }
 #marcador1 {    
     width: 230px;
     height: 50px;    
-    background-color: black;
+    background-color:rgba(114, 114, 114, 0.651);
     color: white;
     font-size: 45px;    
     text-align: center;
-    
+    margin-right: 50px;
 }
 #marcador2 {    
-    width: 290px;
+    width: 255px;
     height: 50px;
-    background-color: black;
+    background-color: rgba(114, 114, 114, 0.651);
     color: white;
     font-size: 35px;
-    align-content: center;    
+    align-content: center;   
+     
 }
 #marcador2 img {
     margin-top: 1px;
@@ -45,15 +49,16 @@ body {
 }
 
 #salida {    
-    margin-left: 100px;
+    margin-left: 10px;
     margin-right: 90px;
     width: 70px;
     height: 60px;     
-    background-color: black;    
+    background-image: url(Fotos/suelo.jpg);    
 }
 
 #negro {
-    background-color: black;
+    background-image: url(Fotos/suelo.jpg);
+    background-size: auto;
 }
 #pantalla { 
     display: flex;
@@ -78,44 +83,51 @@ body {
     float: left;    
 }    
 #salir {    
-    background-color: rgb(65, 65, 65);
-    border: 1px solid black;
+    background-color: rgb(172, 101, 9);
+    border: 1px solid rgb(0, 0, 0);
     width: 60px;
     cursor: pointer;   
 }
 #reiniciar {    
-    background-color: rgb(65, 65, 65);
+    background-color: rgb(172, 101, 9);
     border: 1px solid black;
     width: 60px;
     cursor: pointer;
 }
 #silenciar {    
-    background-color: rgb(65,65,65);
+    background-color: rgb(172, 101, 9);
     border: 1px solid black;
     width: 60px;
-    height: inherit;
+    height: 40px;    
     cursor: pointer;
 }
 #salir:hover, #reiniciar:hover, #silenciar:hover {
     background-color: rgb(82, 29, 29);
 }
 .pulsado {
-    box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 15px #000000;
+    background-image: url(Fotos/sin-sonido.png);
+}
+.noPulsado {
+    background-image: url(Fotos/con-sonido.png);
 }
 #nivel {
+    background-color: rgb(172, 101, 9);
+    border: 1px solid black;
     position: absolute;
-    left: 18%;             
+    left: 18%; 
+    padding: 5px;             
     font-size: 40px;
     margin-top: 4px;
     font-weight: bold;
-    color: black;
+    color: rgb(255, 255, 255);
     text-align: center;
     align-items: center;    
 }
 .celda {
     width: 100%;
     height: 100%;
-    background-color: rgb(82, 29, 29);    
+    background-color: rgb(82, 29, 29);       
     display: flex;
     justify-content: center;
     align-items: center;
@@ -254,12 +266,12 @@ body {
 }
 
 .momiaPremio21 {
-    background-image: url(Fotos/premio/negro.jpg);
+    background-image: url(Fotos/puertaMomia.jpg);
     background-size: cover;    
 }
 
 .pasillo {
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     background-size: 100% 100%;
     overflow: visible;
 }
@@ -316,15 +328,15 @@ body {
 }
 .momia1{
     background-image: url(Fotos/momia/momia1.png);
-    
+  
 }
 .momia2{
     background-image: url(Fotos/momia/momia2.png);
-   
+    
 }
 .momia3{
     background-image: url(Fotos/momia/momia3.png);
-    
+   
 }
 .momia4{
     background-image: url(Fotos/momia/momia4.png);
@@ -348,7 +360,7 @@ body {
 }
 
 .oculto {
-    background-image: none;
+    background-image: url(Fotos/celda.jpg);
     background-color: rgb(82, 29, 29);
 }
 
@@ -420,5 +432,8 @@ img {
     overflow: visible;
 }
 .zindex {
-    z-index: 6;
+    z-index: 6;    
+}
+.opacidad {
+    opacity: 0;
 }

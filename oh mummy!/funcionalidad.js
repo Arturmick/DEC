@@ -8,6 +8,18 @@ const premios = {
     sarcofago: true,
     momiaPremio: true
 };
+let verificacionCasilla = [];
+let imagenSalida;
+let vidas = 5;
+let nivel = 1;
+let puntuacion = 0;
+let inicio = true;
+let reinicio = true;
+
+let bloquesTesoros = [20]; bloquesTesoros.fill(false);    
+let potion = false;
+let llave = false;
+let sarcofago = false;
 let elementos = [
     { tipo: 'llave', cantidad: 1 },
     { tipo: 'cofre', cantidad: 11 },
@@ -16,41 +28,34 @@ let elementos = [
     { tipo: 'momiaPremio', cantidad: 1 },
     { tipo: 'nada', cantidad: 5 } 
 ];
-let verificacionCasilla = [];
+
 let intervaloMomia = [];
-let imagenSalida;
-let vidas = 5;
-let nivel = 1;
-let inicio = true;
-let reinicio = true;
-let pasoDerechoPersonaje = true;
 let pasoDerechoMomia = [true];
-let posicionPersonaje = { fila: 0, columna: 10 }; 
 let posicionMomia = [];
 let numeroMomias = 1; 
 let tiempoMomia = 500;
-let direccion = [];
-let bloquesTesoros = [20]; bloquesTesoros.fill(false);    
-let potion = false;
-let llave = false;
-let sarcofago = false;
-let puntuacion = 0;
+let direccionMomia = [];
+
+let pasoDerechoPersonaje = true;
+let posicionPersonaje = { fila: 0, columna: 10 }; 
+let velocidadPersonaje = 50;
 
 let backgroundMusic = new Audio('Musica/ohmummy.mp3');
 backgroundMusic.loop = true;
-backgroundMusic.muted = false;
+backgroundMusic.muted =  false;
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    
     backgroundMusic.play(); // Reproduce la música de fondo 
     cargarPartida(); //Comprueba si hay elementos guardados en el localStorage
     crearTablero(); //Crea las casillas del tablero
-    colocarPremios(); //Coloca los premios en el tablero
-    anadirVidas();    //Añade las vidas al marcador
+    colocarPremios(); //Coloca los premios en el tablero    
     cargarEventos(); //Carga los eventos del juego        
     inicializarVerificacionCasilla(); //Inicializa la matriz de verificación de casillas, es una matriz de booleanos para saber si el personaje ha pasado por una casilla
     anadirMomias(); //Añade las momias al tablero
     comprobarNivel(); //Comprueba el nivel en el que se encuentra el jugador y cambia el texto
+    anadirVidas();    //Añade las vidas al marcador
        
 });
 
@@ -93,10 +98,11 @@ function cargarEventos() {
         } else {
             backgroundMusic.muted = true;   
         }        
-        document.getElementById('silenciar').classList.toggle('pulsado');   
+        document.getElementById('silenciar').classList.toggle('pulsado');
+        document.getElementById('silenciar').classList.toggle('noPulsado');   
     });
 
-    document.addEventListener('keydown', throttle(mecanicas,300));
+    document.addEventListener('keydown', throttle(mecanicas,velocidadPersonaje));
 }
 function mecanicas(evento) { 
 
@@ -112,7 +118,8 @@ function mecanicas(evento) {
     //La primera vez que se pulsa la flecha hacia abajo, se elimina la imagen de la salida y se añade el personaje dentro del tablero
     if (evento.key === 'ArrowDown' && inicio) {    
 
-        salida.style.backgroundColor = 'rgb(228, 228, 2)';
+        
+        salida.classList.add('opacidad');
         document.getElementById('salida').querySelector('img').remove();               
         tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.add('personaje1', 'pasos3'); 
         verificacionCasilla[posicionPersonaje.fila][posicionPersonaje.columna] = true; 
@@ -201,10 +208,11 @@ function crearTablero() {
     }
              
 }
-function anadirVidas() {
-    const img = document.createElement('img');
-    img.src = 'Fotos/vida.png';
-    for (let i = 0; i < vidas; i++) {            
+function anadirVidas() {    
+    
+    for (let i = 1; i <= vidas; i++) {  
+        let img = document.createElement('img');   
+        img.src = 'Fotos/vida.png';       
         marcador2.appendChild(img);
     }       
 }
@@ -380,26 +388,26 @@ function gestionarPremio(fila, col, index) {
 function moverMomia(numMomia) {  
         
         let nuevaFila = posicionMomia[numMomia].fila;
-        let nuevaColumna = posicionMomia[numMomia].columna;
+        let nuevaColumna = posicionMomia[numMomia].columna;        
 
         calculoDireccion(numMomia); 
 
-        if (direccion[numMomia] === 'ArrowUp') {
+        if (direccionMomia[numMomia] === 'ArrowUp') {
             nuevaFila -= 1;
-        } else if (direccion[numMomia] === 'ArrowDown') {
+        } else if (direccionMomia[numMomia] === 'ArrowDown') {
             nuevaFila += 1;
-        } else if (direccion[numMomia] === 'ArrowLeft') {
+        } else if (direccionMomia[numMomia] === 'ArrowLeft') {
             nuevaColumna -= 1;
-        } else if (direccion[numMomia] === 'ArrowRight') {
+        } else if (direccionMomia[numMomia] === 'ArrowRight') {
             nuevaColumna += 1;
         }
 
         if (tablero[nuevaFila] && tablero[nuevaFila][nuevaColumna] && tablero[nuevaFila][nuevaColumna].classList.contains('pasillo')) {
             quitarClasesMomia(numMomia);             
             posicionMomia[numMomia] = { fila: nuevaFila, columna: nuevaColumna }; 
-            cambiarSpriteMomia(`momia${direccion[numMomia] === 'ArrowUp' ? 4 : direccion[numMomia] === 'ArrowDown' ? 3 : direccion[numMomia] === 'ArrowLeft' ? 2 : 1}`,
-                 `entrarPor${direccion[numMomia] === 'ArrowUp' ? 'Abajo' : direccion[numMomia] === 'ArrowDown' ? 'Arriba' : direccion[numMomia] === 'ArrowLeft' ? 'Derecha' : 'Izquierda'}`,
-                  nuevaFila, nuevaColumna,numMomia);
+            cambiarSpriteMomia(`momia${direccionMomia[numMomia] === 'ArrowUp' ? 4 : direccionMomia[numMomia] === 'ArrowDown' ? 3 : direccionMomia[numMomia] === 'ArrowLeft' ? 2 : 1}`,
+                 `entrarPor${direccionMomia[numMomia] === 'ArrowUp' ? 'Abajo' : direccionMomia[numMomia] === 'ArrowDown' ? 'Arriba' : direccionMomia[numMomia] === 'ArrowLeft' ? 'Derecha' : 'Izquierda'}`,
+                  nuevaFila, nuevaColumna,numMomia);            
         }    
 }
 
@@ -429,26 +437,26 @@ function calculoDireccion(numMomia) {
     const direcciones = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];    
 
     if (posicionMomia[numMomia].fila === 0 && posicionMomia[numMomia].columna === 0) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowUp' && d !== 'ArrowLeft')[Math.floor(Math.random() * 2)];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowUp' && d !== 'ArrowLeft')[Math.floor(Math.random() * 2)];
     } else if (posicionMomia[numMomia].fila === 12 && posicionMomia[numMomia].columna === 0) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowDown' && d !== 'ArrowLeft')[Math.floor(Math.random() * 2)];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowDown' && d !== 'ArrowLeft')[Math.floor(Math.random() * 2)];
     } else if (posicionMomia[numMomia].fila === 12 && posicionMomia[numMomia].columna === 20) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowDown' && d !== 'ArrowRight')[Math.floor(Math.random() * 2)];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowDown' && d !== 'ArrowRight')[Math.floor(Math.random() * 2)];
     } else if (posicionMomia[numMomia].fila === 0 && posicionMomia[numMomia].columna === 20) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowUp' && d !== 'ArrowRight')[Math.floor(Math.random() * 2)];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowUp' && d !== 'ArrowRight')[Math.floor(Math.random() * 2)];
     } else if (posicionMomia[numMomia].fila === 0 && posicionMomia[numMomia].columna % 4 === 0) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowUp')[Math.floor(Math.random() * (direcciones.length - 1))];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowUp')[Math.floor(Math.random() * (direcciones.length - 1))];
     } else if (posicionMomia[numMomia].fila === 12 && posicionMomia[numMomia].columna % 4 === 0) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowDown')[Math.floor(Math.random() * (direcciones.length - 1))];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowDown')[Math.floor(Math.random() * (direcciones.length - 1))];
     } else if (posicionMomia[numMomia].fila % 3 === 0 && posicionMomia[numMomia].columna === 0) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowLeft')[Math.floor(Math.random() * (direcciones.length - 1))];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowLeft')[Math.floor(Math.random() * (direcciones.length - 1))];
     } else if (posicionMomia[numMomia].fila % 3 === 0 && posicionMomia[numMomia].columna === 20) {
-        direccion[numMomia] = direcciones.filter(d => d !== 'ArrowRight')[Math.floor(Math.random() * (direcciones.length - 1))];
+        direccionMomia[numMomia] = direcciones.filter(d => d !== 'ArrowRight')[Math.floor(Math.random() * (direcciones.length - 1))];
     } else if (posicionMomia[numMomia].fila % 3 === 0 && posicionMomia[numMomia].columna % 4 === 0) {
-        direccion[numMomia] = direcciones[Math.floor(Math.random() * direcciones.length)];
+        direccionMomia[numMomia] = direcciones[Math.floor(Math.random() * direcciones.length)];
     }
 
-    return direccion[numMomia];
+    return direccionMomia[numMomia];
 }
 
 function comprobarPremio(fila, columna) {
@@ -552,7 +560,7 @@ function casillaSalida() {
     const img = document.createElement('img');
 
     salida.classList.remove('oculto');
-    salida.style.backgroundColor = 'black';
+    salida.classList.remove('opacidad');
     inicio = true;
     posicionPersonaje = { fila: 0, columna: 10 }; 
     
@@ -561,7 +569,7 @@ function casillaSalida() {
 }
 function pasarNivel() {
     
-    salida.style.backgroundColor = 'black';
+    salida.classList.remove('opacidad');
     if (posicionPersonaje.fila === 0 && posicionPersonaje.columna === 10) {
         document.addEventListener('keydown', (evento) => {
             if (evento.key === 'ArrowUp' && reinicio === true) {                 
