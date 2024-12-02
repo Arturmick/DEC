@@ -264,12 +264,30 @@ body {
     background-image: url(Fotos/premio/potion23.png);
     background-size: cover;
 }
-
+.momiaPremio11 {
+    background-image: url(Fotos/celda.jpg);
+    background-size: cover;    
+}
+.momiaPremio12 {
+    background-image: url(Fotos/celda.jpg);
+    background-size: cover;    
+}
+.momiaPremio13 {
+    background-image: url(Fotos/celda.jpg);
+    background-size: cover;    
+}
 .momiaPremio21 {
     background-image: url(Fotos/puertaMomia.jpg);
     background-size: cover;    
 }
-
+.momiaPremio22 {
+    background-image: url(Fotos/celda.jpg);
+    background-size: cover;    
+}
+.momiaPremio23 {
+    background-image: url(Fotos/celda.jpg);
+    background-size: cover;    
+}
 .pasillo {
     background-color: rgba(0, 0, 0, 0);
     background-size: 100% 100%;
@@ -436,4 +454,30 @@ img {
 }
 .opacidad {
     opacity: 0;
+}
+.empezar2 {
+    position: absolute;
+    top: -25%;
+    left: calc(50% - 470px);
+    background-color: rgba(172, 101, 9, 0);    
+    background-size: cover;    
+    width: 50%;
+    height: auto;   
+    margin-top: 10px;
+    z-index: 5;
+}
+.empezar:hover {
+    background-color: rgba(172, 101, 9, 0.5);
+}
+.empezar {    
+    position: absolute;
+    top: 60%;
+    left: calc(50% - 260px);
+    background-color: rgba(172, 101, 9, 0);    
+    background-size: cover;    
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    margin-top: 10px;
+    z-index: 6;  
 }

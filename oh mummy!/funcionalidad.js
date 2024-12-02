@@ -15,6 +15,7 @@ let nivel = 1;
 let puntuacion = 0;
 let inicio = true;
 let reinicio = true;
+let cartelStart = 1;
 
 let bloquesTesoros = [20]; bloquesTesoros.fill(false);    
 let potion = false;
@@ -47,17 +48,38 @@ backgroundMusic.muted =  false;
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    backgroundMusic.play(); // Reproduce la música de fondo 
     cargarPartida(); //Comprueba si hay elementos guardados en el localStorage
+    
+    if(cartelStart == 1){
+        bienvenida() //Muestra la pantalla de start y hace que empiece la música de fondo
+    }else {
+        juego(); //Carga el juego directamente
+    }
+    cargarEventos(); //Carga los eventos del juego  
+});
+function bienvenida() {
+    const imgDos = document.createElement('img');
+    const img = document.createElement('img');
+    imgDos.src = 'Fotos/cartel2.png';
+    img.src = 'Fotos/start.png';
+    imgDos.classList.add('empezar2');
+    img.classList.add('empezar');   
+    img.id = 'empezar';
+    imgDos.id = 'empezar2';
+    document.body.appendChild(img);
+    document.body.appendChild(imgDos);
+    protector.classList.add('protector'); 
+    cartelStart = 0;
+}
+
+function juego() {    
     crearTablero(); //Crea las casillas del tablero
-    colocarPremios(); //Coloca los premios en el tablero    
-    cargarEventos(); //Carga los eventos del juego        
+    colocarPremios(); //Coloca los premios en el tablero
     inicializarVerificacionCasilla(); //Inicializa la matriz de verificación de casillas, es una matriz de booleanos para saber si el personaje ha pasado por una casilla
     anadirMomias(); //Añade las momias al tablero
     comprobarNivel(); //Comprueba el nivel en el que se encuentra el jugador y cambia el texto
     anadirVidas();    //Añade las vidas al marcador
-       
-});
+}
 
 function cargarPartida() {
     if (localStorage.getItem('puntuacion') !== null) {
@@ -66,10 +88,22 @@ function cargarPartida() {
         vidas = parseInt(localStorage.getItem('vidas')); 
         numeroMomias = parseInt(localStorage.getItem('numeroMomias'));
         nivel = parseInt(localStorage.getItem('nivel'));
+        cartelStart = parseInt(localStorage.getItem('cartelStart'));
+        
     }
 }
 
 function cargarEventos() {
+    if (typeof empezar !== 'undefined') {
+        empezar.addEventListener('click', () => {
+            protector.classList.remove('protector');
+            backgroundMusic.play(); // Reproduce la música de fondo 
+            empezar.remove();
+            empezar2.remove();  
+            cartelStart = false;  
+            juego();       
+        }); 
+    }    
     document.addEventListener('click', (evento) => {
         if (evento.target.classList.contains('celda')) {
             console.log(`Clicked on cell at position: ${evento.target.dataset.position}`);
@@ -77,6 +111,7 @@ function cargarEventos() {
         
         }
     });
+    
     document.getElementById('salir').addEventListener('click', () => {
         if (confirm('¿Estás seguro de que deseas salir del juego?\nLos datos no se guardarán')) {
             localStorage.clear();
@@ -105,19 +140,15 @@ function cargarEventos() {
     document.addEventListener('keydown', throttle(mecanicas,velocidadPersonaje));
 }
 function mecanicas(evento) { 
-
     let pasos = "";
     let orientacionPersonaje = "";
     let animacionPersonaje = "";  
     let nuevaColumnaPersonaje = posicionPersonaje.columna;
     let nuevaFilaPersonaje = posicionPersonaje.fila; 
     let movimientoValido = false;
-    
- 
 
     //La primera vez que se pulsa la flecha hacia abajo, se elimina la imagen de la salida y se añade el personaje dentro del tablero
-    if (evento.key === 'ArrowDown' && inicio) {    
-
+    if (evento.key === 'ArrowDown' && inicio) { 
         
         salida.classList.add('opacidad');
         document.getElementById('salida').querySelector('img').remove();               
@@ -587,6 +618,7 @@ function cambiarNivel() {
     localStorage.setItem('puntuacion', puntuacion);
     localStorage.setItem('vidas', vidas);
     localStorage.setItem('numeroMomias', numeroMomias);
+    localStorage.setItem('cartelStart', cartelStart);
     window.location.reload();
 }
 
