@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos.css">
+    <script src="funcionalidad.js"></script>
     <title>Document</title>
 </head>
 <body>
+    <audio id="musicaFondo" src="Musica/ohmummy.mp3" loop></audio>
     <div id="tablero">
         <div id="marcadores">
             <div class="letras">SCORE:</div>
@@ -20,7 +22,7 @@
                 <img src="Fotos/vida.png" alt="">
                 <img src="Fotos/vida.png" alt="">
                 <img src="Fotos/vida.png" alt="">
-                <img src="Fotos/vida.png" alt="">
+               
             </div>
         </div>
         <div id="negro">
@@ -28,8 +30,14 @@
         </div>
         
     </div>
-    <div id="salir">Salir</div>
-    <div id="reiniciar">Reiniciar</div>
-    <script src="funcionalidad.js"></script>
+    <div id="submenu">
+        <div id="silenciar">🔇</div> 
+        <div id="reiniciar">Reiniciar</div>
+        <div id="salir">Salir</div>
+        
+               
+    </div>
+    <div id="nivel"></div>
+    <div id="protector"></div>
 </body>
 </html>
