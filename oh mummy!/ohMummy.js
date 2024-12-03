@@ -34,12 +34,12 @@ let intervaloMomia = [];
 let pasoDerechoMomia = [true];
 let posicionMomia = [];
 let numeroMomias = 1; 
-let tiempoMomia = 500;
+let tiempoMomia = 1000;
 let direccionMomia = [];
 
 let pasoDerechoPersonaje = true;
 let posicionPersonaje = { fila: 0, columna: 10 }; 
-let velocidadPersonaje = 50;
+let velocidadPersonaje = 300;
 
 let backgroundMusic = new Audio('Musica/ohmummy.mp3');
 backgroundMusic.loop = true;
