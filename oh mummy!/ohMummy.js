@@ -39,7 +39,7 @@ let direccionMomia = [];
 
 let pasoDerechoPersonaje = true;
 let posicionPersonaje = { fila: 0, columna: 10 }; 
-let velocidadPersonaje = 300;
+let velocidadPersonaje = 200;
 
 let backgroundMusic = new Audio('Musica/ohmummy.mp3');
 backgroundMusic.loop = true;
@@ -49,25 +49,25 @@ backgroundMusic.muted =  false;
 document.addEventListener('DOMContentLoaded', () => {
     
     cargarPartida(); //Comprueba si hay elementos guardados en el localStorage
-    
-    if(cartelStart == 1){
-        bienvenida() //Muestra la pantalla de start y hace que empiece la música de fondo
-    }else {
-        juego(); //Carga el juego directamente
-    }
+    bienvenida() //Muestra la pantalla de start y hace que empiece la música de fondo
+    juego(); //Carga el juego directamente    
     cargarEventos(); //Carga los eventos del juego  
 });
 function bienvenida() {
     const imgDos = document.createElement('img');
     const img = document.createElement('img');
+    const div = document.createElement('div');
+    div.innerText =  `Nivel${nivel}`;
     imgDos.src = 'Fotos/cartel2.png';
     img.src = 'Fotos/start.png';
     imgDos.classList.add('empezar2');
     img.classList.add('empezar');   
     img.id = 'empezar';
     imgDos.id = 'empezar2';
+    div.id = 'nivelCartel';
     document.body.appendChild(img);
     document.body.appendChild(imgDos);
+    document.body.appendChild(div);
     protector.classList.add('protector'); 
     cartelStart = 0;
 }
@@ -99,7 +99,8 @@ function cargarEventos() {
             protector.classList.remove('protector');
             backgroundMusic.play(); // Reproduce la música de fondo 
             empezar.remove();
-            empezar2.remove();  
+            empezar2.remove(); 
+            nivelCartel.remove(); 
             cartelStart = false;  
             juego();       
         }); 
@@ -161,7 +162,7 @@ function mecanicas(evento) {
 
             pasos = 'pasos3';    
             orientacionPersonaje = 'personaje3';
-            animacionPersonaje = 'entrarPorArriba';
+            animacionPersonaje = 'entrarPorArribaPersonaje';
             nuevaFilaPersonaje += 1;  
             movimientoValido = true; 
         }
@@ -171,7 +172,7 @@ function mecanicas(evento) {
 
             pasos = 'pasos4';   
             orientacionPersonaje = 'personaje4';
-            animacionPersonaje = 'entrarPorAbajo'; 
+            animacionPersonaje = 'entrarPorAbajoPersonaje'; 
             nuevaFilaPersonaje -= 1; 
             movimientoValido = true;    
         }            
@@ -181,7 +182,7 @@ function mecanicas(evento) {
 
             pasos = 'pasos2';   
             orientacionPersonaje = 'personaje2';
-            animacionPersonaje = 'entrarPorDerecha';  
+            animacionPersonaje = 'entrarPorDerechaPersonaje';  
             nuevaColumnaPersonaje -= 1; 
             movimientoValido = true      
         }
@@ -191,7 +192,7 @@ function mecanicas(evento) {
 
             pasos = 'pasos1'; 
             orientacionPersonaje = 'personaje1';
-            animacionPersonaje = 'entrarPorIzquierda'; 
+            animacionPersonaje = 'entrarPorIzquierdaPersonaje'; 
             nuevaColumnaPersonaje += 1; 
             movimientoValido = true;
         }
@@ -528,10 +529,10 @@ function quitarClasesPersonaje() {
     tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('personaje2r');
     tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('personaje3r');
 
-    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorArriba');
-    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorAbajo');
-    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorDerecha');
-    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorIzquierda');    
+    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorArribaPersonaje');
+    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorAbajoPersonaje');
+    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorDerechaPersonaje');
+    tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorIzquierdaPersonaje');    
 }
 function quitarClasesMomia(index) {
     const momia = posicionMomia[index];

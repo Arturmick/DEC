@@ -111,6 +111,7 @@ body {
 .noPulsado {
     background-image: url(Fotos/con-sonido.png);
 }
+
 #nivel {
     background-color: rgb(172, 101, 9);
     border: 1px solid black;
@@ -403,22 +404,61 @@ body {
 }
 
 .entrarPorIzquierda {
-    animation: entrarPorIzquierda 0.5s forwards;
+    animation: entrarPorIzquierda 1s forwards;
     z-index: 3;
 }
 
 .entrarPorDerecha {
-    animation: entrarPorDerecha 0.5s forwards;
+    animation: entrarPorDerecha 1s forwards;
     z-index: 3;
 }
 
 .entrarPorArriba {
-    animation: entrarPorArriba 0.5s forwards;
+    animation: entrarPorArriba 1s forwards;
     z-index: 3;
 }
 
 .entrarPorAbajo {
-    animation: entrarPorAbajo 0.5s forwards;
+    animation: entrarPorAbajo 1s forwards;
+    z-index: 3;
+}
+@keyframes entrarPorIzquierdaPersonaje {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes entrarPorDerechaPersonaje {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes entrarPorArribaPersonaje {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes entrarPorAbajoPersonaje {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.entrarPorIzquierdaPersonaje {
+    animation: entrarPorIzquierda 0.35s forwards;
+    z-index: 3;
+}
+
+.entrarPorDerechaPersonaje {
+    animation: entrarPorDerecha 0.35s forwards;
+    z-index: 3;
+}
+
+.entrarPorArribaPersonaje {
+    animation: entrarPorArriba 0.35s forwards;
+    z-index: 3;
+}
+
+.entrarPorAbajoPersonaje {
+    animation: entrarPorAbajo 0.35s forwards;
     z-index: 3;
 }
 img {
@@ -458,7 +498,7 @@ img {
 .empezar2 {
     position: absolute;
     top: -25%;
-    left: calc(50% - 470px);
+    left: 24.5%;
     background-color: rgba(172, 101, 9, 0);    
     background-size: cover;    
     width: 50%;
@@ -471,8 +511,8 @@ img {
 }
 .empezar {    
     position: absolute;
-    top: 60%;
-    left: calc(50% - 260px);
+    top: 65%;
+    left: 36%;
     background-color: rgba(172, 101, 9, 0);    
     background-size: cover;    
     width: auto;
@@ -480,4 +520,24 @@ img {
     cursor: pointer;
     margin-top: 10px;
     z-index: 6;  
+}
+#nivelCartel {
+    position: absolute;
+    top: 55%;
+    left: 44%;        
+    background-size: cover;    
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+    z-index: 6; 
+    background-color: rgb(172, 101, 9);
+    border: 1px solid black;
+    padding: 5px;             
+    font-size: 40px;
+    margin-top: 4px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    align-items: center;      
 }

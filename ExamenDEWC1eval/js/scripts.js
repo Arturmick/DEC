@@ -16,34 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarEventos();
     }
 });
-function cargarPartida() {
-    if(localStorage.getItem("puntosJugador") != null) {
-        puntosJugador = parseInt(localStorage.getItem("puntosJugador"));
-        puntosEnemigo = parseInt(localStorage.getItem("puntosEnemigo"));
-        console.log(puntosJugador);
-        sumaPuntosEnemigo(puntosEnemigo);
-        sumaPuntosJugardor(puntosJugador);  
-    }    
-}
-function ganador() {
-    if(puntosJugador > puntosEnemigo) {
-        solucion.innerHTML = "Has ganado!";
-    }else {
-        solucion.innerHTML = "Has perdido!";
-    }
-    proteccion.classList.remove("invisible");
-    mensaje.classList.remove("invisible");  
-    
-    continuar.addEventListener("click", () => {       
-        localStorage.clear();
-        window.location.reload();
-    });
-     
-}
-function guardarPartida() {
-    localStorage.setItem("puntosJugador", puntosJugador);
-    localStorage.setItem("puntosEnemigo", puntosEnemigo);
-}
 function cargarEventos() {
     let items = document.querySelectorAll('.item');
     let img = document.querySelectorAll('.item img'); 
@@ -70,6 +42,43 @@ function cargarEventos() {
         window.location.reload();
     });  
 }
+function anadirImagenes() {
+    let items = document.querySelectorAll('.item');    
+    
+    items[0].innerHTML = `<img id="piedra" src="img/piedra.png" draggable>`;
+    items[1].innerHTML = `<img id="papel" src="img/papel.png" draggable>`;
+    items[2].innerHTML = `<img id="tijera" src="img/tijera.png" draggable>`;
+    items[3].innerHTML = `<img id="lagarto" src="img/lagarto.png" draggable>`;
+    items[4].innerHTML = `<img id="spock" src="img/spock.png" draggable>`;    
+    
+}
+function cargarPartida() {
+    if(localStorage.getItem("puntosJugador") != null) {
+        puntosJugador = parseInt(localStorage.getItem("puntosJugador"));
+        puntosEnemigo = parseInt(localStorage.getItem("puntosEnemigo"));
+        console.log(puntosJugador);
+        sumaPuntosEnemigo(puntosEnemigo);
+        sumaPuntosJugardor(puntosJugador);  
+    }    
+}
+function ganador() {
+    if(puntosJugador > puntosEnemigo) {
+        solucion.innerHTML = "Has ganado!";
+    }else {
+        solucion.innerHTML = "Has perdido!";
+    }
+    proteccion.classList.remove("invisible");
+    mensaje.classList.remove("invisible");  
+    
+    continuar.addEventListener("click", () => {       
+        localStorage.clear();
+        window.location.reload();
+    });     
+}
+function guardarPartida() {
+    localStorage.setItem("puntosJugador", puntosJugador);
+    localStorage.setItem("puntosEnemigo", puntosEnemigo);
+}
 function cambiarContenerdor(ev) {
     let imagen = document.getElementById(ev.target.id);
     seleccionado.appendChild(imagen);
@@ -89,17 +98,6 @@ function resolcuion(jugadorDecision) {
         mensaje.classList.remove("invisible");
         pelea(jugadorDecision, enemigoDecision);
         },2000);
-}
-
-function anadirImagenes() {
-    let items = document.querySelectorAll('.item');    
-    
-    items[0].innerHTML = `<img id="piedra" src="img/piedra.png" draggable>`;
-    items[1].innerHTML = `<img id="papel" src="img/papel.png" draggable>`;
-    items[2].innerHTML = `<img id="tijera" src="img/tijera.png" draggable>`;
-    items[3].innerHTML = `<img id="lagarto" src="img/lagarto.png" draggable>`;
-    items[4].innerHTML = `<img id="spock" src="img/spock.png" draggable>`;    
-    
 }
 function accionEnemiga (){
     let random = Math.floor(Math.random() * enemigo.length);
@@ -236,6 +234,5 @@ function allowDrop(ev) {
 function drop(ev) {
     ev.preventDefault();
     const data = ev.dataTransfer.getData("text");    
-    ev.target.appendChild(document.getElementById(data));
-    
+    ev.target.appendChild(document.getElementById(data));    
 }
