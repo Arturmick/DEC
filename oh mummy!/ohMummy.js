@@ -21,6 +21,7 @@ let bloquesTesoros = [20]; bloquesTesoros.fill(false);
 let potion = false;
 let llave = false;
 let sarcofago = false;
+let premiosAleatoriedad = ['llave', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'cofre', 'potion', 'sarcofago', 'momiaPremio', 'nada', 'nada', 'nada', 'nada', 'nada'];
 let elementos = [
     { tipo: 'llave', cantidad: 1 },
     { tipo: 'cofre', cantidad: 11 },
@@ -33,6 +34,7 @@ let elementos = [
 let intervaloMomia = [];
 let pasoDerechoMomia = [true];
 let posicionMomia = [];
+let posicionMomiaAntigua = [];
 let numeroMomias = 1; 
 let tiempoMomia = 1000;
 let direccionMomia = [];
@@ -89,30 +91,20 @@ function cargarPartida() {
         numeroMomias = parseInt(localStorage.getItem('numeroMomias'));
         nivel = parseInt(localStorage.getItem('nivel'));
         cartelStart = parseInt(localStorage.getItem('cartelStart'));
-        
+        if(nivel >= 4) {
+            tiempoMomia = 700;
+        }
     }
 }
 
 function cargarEventos() {
     if (typeof empezar !== 'undefined') {
         empezar.addEventListener('click', () => {
-            protector.classList.remove('protector');
-            backgroundMusic.play(); // Reproduce la música de fondo 
-            empezar.remove();
-            empezar2.remove(); 
-            nivelCartel.remove(); 
-            cartelStart = false;  
-            juego();       
+            eventosStart();              
         });
         document.addEventListener( 'keydown', (evento) => {
         if (evento.key === 'Enter') {
-            protector.classList.remove('protector');
-            backgroundMusic.play(); // Reproduce la música de fondo 
-            empezar.remove();
-            empezar2.remove(); 
-            nivelCartel.remove(); 
-            cartelStart = false;  
-            juego(); 
+            eventosStart();            
         }
     });
     
@@ -152,7 +144,23 @@ function cargarEventos() {
 
     document.addEventListener('keydown', throttle(mecanicas,velocidadPersonaje));
 }
+function eventosStart() {
+    
+    protector.classList.remove('protector');
+    mochila.classList.remove('opacidad');
+    nivelStart.classList.remove('opacidad');
+    backgroundMusic.play(); // Reproduce la música de fondo 
+    empezar.remove();
+    empezar2.remove(); 
+    nivelCartel.remove(); 
+    cartelStart = false;  
+    juego();
+     
+}
 function mecanicas(evento) { 
+    const mochila = document.getElementById('mochila');
+    const imgs = mochila.getElementsByTagName('img');
+
     let pasos = "";
     let orientacionPersonaje = "";
     let animacionPersonaje = "";  
@@ -217,7 +225,15 @@ function mecanicas(evento) {
         cambiarSpritePersonaje(orientacionPersonaje, animacionPersonaje);
         movimientoValido = false;
         anadirPasos(pasos);
+
         if(comprobarColision(posicionPersonaje) && potion) {
+            
+            for (let i = 0; i < imgs.length; i++) {
+                if (imgs[i].src.includes('Fotos/potion.png')) {
+                mochila.removeChild(imgs[i]);
+                break;
+            }
+        }
             matarMomia();            
         }else if(comprobarColision(posicionPersonaje)) {
             morirPersonaje();
@@ -274,21 +290,18 @@ function colocarPremios() {
     
     for (let i = 1; i <= 10; i += 3) {
         for (let j = 2; j <= 18; j += 4) {
-            if (elementos.length > 0) {
-                const index = Math.floor(Math.random() * elementos.length);
-                const elemento = elementos[index];                
+            if (premiosAleatoriedad.length > 0) {
+                const index = Math.floor(Math.random() * premiosAleatoriedad.length);
+                const premio = premiosAleatoriedad[index];                
                 
-                tablero[i][j-1].classList.add(elemento.tipo + '11', 'oculto');
-                tablero[i][j].classList.add(elemento.tipo + '12', 'oculto');
-                tablero[i][j+1].classList.add(elemento.tipo + '13', 'oculto');
-                tablero[i+1][j-1].classList.add(elemento.tipo + '21', 'oculto');
-                tablero[i+1][j].classList.add(elemento.tipo + '22', 'oculto');
-                tablero[i+1][j+1].classList.add(elemento.tipo + '23', 'oculto');
+                tablero[i][j-1].classList.add(premio + '11', 'oculto');
+                tablero[i][j].classList.add(premio + '12', 'oculto');
+                tablero[i][j+1].classList.add(premio + '13', 'oculto');
+                tablero[i+1][j-1].classList.add(premio + '21', 'oculto');
+                tablero[i+1][j].classList.add(premio + '22', 'oculto');
+                tablero[i+1][j+1].classList.add(premio + '23', 'oculto');
                 
-                elemento.cantidad--;
-                if (elemento.cantidad === 0) {
-                    elementos.splice(index, 1);
-                }
+                premiosAleatoriedad.splice(index, 1);                
             }
         }
     }
@@ -313,11 +326,22 @@ function anadirMomias() {
     }
 }
 
+
 function iniciarMovimientoMomia(numMomia) {
+    const mochila = document.getElementById('mochila');
+    const imgs = mochila.getElementsByTagName('img');
+
     intervaloMomia[numMomia]= setInterval(() => {        
         moverMomia(numMomia); 
           
         if(comprobarColision(posicionMomia[numMomia]) && potion) {
+
+            for (let i = 0; i < imgs.length; i++) {
+                if (imgs[i].src.includes('Fotos/potion.png')) {
+                    mochila.removeChild(imgs[i]);
+                    break;
+                }
+            }
             matarMomia();
         }else if(comprobarColision(posicionMomia[numMomia])) {
             morirPersonaje();
@@ -433,7 +457,9 @@ function gestionarPremio(fila, col, index) {
 function moverMomia(numMomia) {  
         
         let nuevaFila = posicionMomia[numMomia].fila;
-        let nuevaColumna = posicionMomia[numMomia].columna;        
+        let nuevaColumna = posicionMomia[numMomia].columna;   
+        
+        posicionMomiaAntigua[numMomia] = { fila: nuevaFila, columna: nuevaColumna };
 
         calculoDireccion(numMomia); 
 
@@ -505,31 +531,64 @@ function calculoDireccion(numMomia) {
 }
 
 function comprobarPremio(fila, columna) {
+    const img = document.createElement('img');
+    let objeto = "";
 
     if (tablero[fila + 1][columna + 1].classList.contains('llave11')) {
         llave = true;
         console.log('llave');
+        objeto = 'llave';
     } else if (tablero[fila + 1][columna + 1].classList.contains('cofre11')) {
         puntuacion += 100;
         marcador1.innerHTML = puntuacion.toString().padStart(8, '0');
-        console.log('cofre');
+        console.log('cofre');        
     } else if (tablero[fila + 1][columna + 1].classList.contains('potion11')) {
         potion = true;
         console.log('potion');
+        objeto = 'potion';
     } else if (tablero[fila + 1][columna + 1].classList.contains('sarcofago11')) {
         sarcofago = true;
         console.log('sarcofago');
+        objeto = 'sarcofago';
     }else if (tablero[fila + 1][columna + 1].classList.contains('momiaPremio11')) {
         console.log('momiaPremio');
         posicionMomia.push({ fila: fila + 3, columna: columna });
-        tablero[posicionMomia[posicionMomia.length - 1].fila][posicionMomia[posicionMomia.length - 1].columna].classList.add('momia1'); 
+        
+
         numeroMomias++;
-        iniciarMovimientoMomia(numeroMomias-1);        
+
+        setTimeout(() => {
+            tablero[fila + 2][columna + 1].classList.remove('momiaPremio21');
+            tablero[fila + 2][columna + 1].classList.add('momiaPremio21a');
+            setTimeout(() => {
+                tablero[fila + 2][columna + 1].classList.remove('momiaPremio21a');
+                tablero[fila + 2][columna + 1].classList.add('momiaPremio21b');                
+                setTimeout(() => {
+                    tablero[fila + 3][columna + 1].classList.add('momia3r', 'entrarPorArriba');
+                    setTimeout(() => {
+                        tablero[fila + 3][columna + 1].classList.remove('momia3r', 'entrarPorArriba');
+                        tablero[fila + 3][columna].classList.add('momia2r', 'entrarPorDerecha');
+                        setTimeout(() => {
+                            tablero[posicionMomia[posicionMomia.length - 1].fila][posicionMomia[posicionMomia.length - 1].columna].classList.add('momia1'); 
+                            iniciarMovimientoMomia(numeroMomias-1); 
+                        }, 300);
+                    }, 700);                    
+                }, 700);
+            }, 300);
+        }, 300);
+        
+               
     }else {
         console.log('Nada');
 
     }
+
+    if(objeto !== "") {
+        img.src = `Fotos/${objeto}.png`;
+        mochila.appendChild(img);
+    }    
 }
+
 
 function quitarClasesPersonaje() {
     tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('personaje4');
@@ -548,21 +607,21 @@ function quitarClasesPersonaje() {
     tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('entrarPorIzquierdaPersonaje');    
 }
 function quitarClasesMomia(index) {
-    const momia = posicionMomia[index];
-    tablero[momia.fila][momia.columna].classList.remove('momia1');
-    tablero[momia.fila][momia.columna].classList.remove('momia2');
-    tablero[momia.fila][momia.columna].classList.remove('momia3');
-    tablero[momia.fila][momia.columna].classList.remove('momia4');
+    
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia1');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia2');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia3');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia4');
 
-    tablero[momia.fila][momia.columna].classList.remove('momia1r');
-    tablero[momia.fila][momia.columna].classList.remove('momia2r');
-    tablero[momia.fila][momia.columna].classList.remove('momia3r');
-    tablero[momia.fila][momia.columna].classList.remove('momia4r');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia1r');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia2r');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia3r');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('momia4r');
 
-    tablero[momia.fila][momia.columna].classList.remove('entrarPorArriba');
-    tablero[momia.fila][momia.columna].classList.remove('entrarPorAbajo');
-    tablero[momia.fila][momia.columna].classList.remove('entrarPorDerecha');
-    tablero[momia.fila][momia.columna].classList.remove('entrarPorIzquierda');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('entrarPorArriba');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('entrarPorAbajo');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('entrarPorDerecha');
+    tablero[posicionMomia[index].fila][posicionMomia[index].columna].classList.remove('entrarPorIzquierda');
 }
 function anadirPasos(pasos) {
     tablero[posicionPersonaje.fila][posicionPersonaje.columna].classList.remove('pasos1');
@@ -580,22 +639,20 @@ function quitarOculto(fila, columna) {
     tablero[fila + 2][columna + 2].classList.remove('oculto');
     tablero[fila + 2][columna + 3].classList.remove('oculto');
 }
-function matarMomia() {
-    let celda = tablero[posicionPersonaje.fila][posicionPersonaje.columna];
-    celda.classList.remove('momia1', 'momia2', 'momia3', 'momia4', 'momia1r', 'momia2r', 'momia3r', 'momia4r');
-    console.log('Muerte a la momia');
-    let index = posicionMomia.findIndex(momia => momia.fila === posicionPersonaje.fila && momia.columna === posicionPersonaje.columna);
+function matarMomia() {   
+    let index = posicionMomia.findIndex(momia => momia.fila === posicionPersonaje.fila && momia.columna === posicionPersonaje.columna);    
+    quitarClasesMomia(index);
+    console.log('Muerte a la momia');    
     clearInterval(intervaloMomia[index]);
     posicionMomia[index] = null;
     potion = false;
     numeroMomias--;
 }
-function morirPersonaje() {
-    let celda = tablero[posicionPersonaje.fila][posicionPersonaje.columna]; 
+function morirPersonaje() {    
     console.log('Muerte al personaje');
     vidas--;
-    marcador2.querySelector('img').remove();
-    celda.classList.remove('personaje1', 'personaje2', 'personaje3', 'personaje4', 'personaje1r', 'personaje2r', 'personaje3r', 'personaje4r');
+    marcador2.querySelector('img').remove();    
+    quitarClasesPersonaje();
     casillaSalida();
     if (vidas === 0) {
         gameOver();
@@ -615,14 +672,14 @@ function casillaSalida() {
 function pasarNivel() {
     
     salida.classList.remove('opacidad');
-    if (posicionPersonaje.fila === 0 && posicionPersonaje.columna === 10) {
-        document.addEventListener('keydown', (evento) => {
-            if (evento.key === 'ArrowUp' && reinicio === true) {                 
-                reinicio = false;
-                cambiarNivel();  
-            }
-        });
-    }
+    
+    document.addEventListener('keydown', (evento) => {
+        if (evento.key === 'ArrowUp' && reinicio === true && posicionPersonaje.fila === 0 && posicionPersonaje.columna === 10) {                 
+            reinicio = false;
+            cambiarNivel();  
+        }
+    });
+    
 }
 
 function cambiarNivel() {
@@ -663,7 +720,7 @@ function comprobarColision(posicion) {
 }
 
 function comprobarNivel() {
-    const nivelElement = document.getElementById('nivel');
+    const nivelElement = document.getElementById('nivelStart');
     nivelElement.innerText = `Nivel ${nivel}`;
 }
 function gameOver() {
