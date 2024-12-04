@@ -136,132 +136,132 @@ body {
     z-index: 2;
 }
 .nada11 ,.nada12,.nada13,.nada21,.nada22,.nada23 {
-    background-color: darkblue; 
+    background-image: url(Fotos/celdaVacia.jpg); 
     
 }
 .llave11 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave11.png);
     background-size: cover;
     
 }   
 .llave12 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave12.png);
     background-size: cover;
     
 }
 .llave13 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave13.png);
     background-size: cover;
     
 }
 .llave21 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave21.png);
     background-size: cover;
   
 }
 .llave22 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave22.png);
     background-size: cover;
    
 }
 .llave23 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/llave23.png);
     background-size: cover;
     
 }    
 .cofre11 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre11.png);
     background-size: cover;
 }
 .cofre12 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre12.png);
     background-size: cover;
 }
 .cofre13 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre13.png);
     background-size: cover;
 }
 .cofre21 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre21.png);
     background-size: cover;
 }
 .cofre22 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre22.png);
     background-size: cover;
 }
 .cofre23 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/cofre23.png);
     background-size: cover;
 }
 .sarcofago11 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago11.png);
     background-size: cover;
 }
 .sarcofago12 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago12.png);
     background-size: cover;
 }
 .sarcofago13 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago13.png);
     background-size: cover;
 }
 .sarcofago21 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago21.png);
     background-size: cover;
 }
 .sarcofago22 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago22.png);
     background-size: cover;
 }
 .sarcofago23 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/sarcofago23.png);
     background-size: cover;
 }
 .potion11 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion11.png);
     background-size: cover;
 }
 .potion12 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion12.png);
     background-size: cover;
 }
 .potion13 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion13.png);
     background-size: cover;
 }
 .potion21 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion21.png);
     background-size: cover;
 }
 .potion22 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion22.png);
     background-size: cover;
 }
 .potion23 {
-    background-color: wheat;
+    background-color: rgba(245, 222, 179, 0.7);
     background-image: url(Fotos/premio/potion23.png);
     background-size: cover;
 }
@@ -404,22 +404,22 @@ body {
 }
 
 .entrarPorIzquierda {
-    animation: entrarPorIzquierda 1s forwards;
+    animation: entrarPorIzquierda 1.7s forwards;
     z-index: 3;
 }
 
 .entrarPorDerecha {
-    animation: entrarPorDerecha 1s forwards;
+    animation: entrarPorDerecha 1.7s forwards;
     z-index: 3;
 }
 
 .entrarPorArriba {
-    animation: entrarPorArriba 1s forwards;
+    animation: entrarPorArriba 1.7s forwards;
     z-index: 3;
 }
 
 .entrarPorAbajo {
-    animation: entrarPorAbajo 1s forwards;
+    animation: entrarPorAbajo 1.7s forwards;
     z-index: 3;
 }
 @keyframes entrarPorIzquierdaPersonaje {
@@ -471,7 +471,7 @@ img {
     top: 0px;
     left: 0px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 4;
     display: flex;
     justify-content: center;
@@ -507,7 +507,7 @@ img {
     z-index: 5;
 }
 .empezar:hover {
-    background-color: rgba(172, 101, 9, 0.5);
+    background-color: rgba(172, 101, 9, 0.7);
 }
 .empezar {    
     position: absolute;

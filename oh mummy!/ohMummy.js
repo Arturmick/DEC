@@ -50,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     cargarPartida(); //Comprueba si hay elementos guardados en el localStorage
     bienvenida() //Muestra la pantalla de start y hace que empiece la música de fondo
-    juego(); //Carga el juego directamente    
+    //juego(); //Carga el juego directamente    
     cargarEventos(); //Carga los eventos del juego  
 });
 function bienvenida() {
     const imgDos = document.createElement('img');
     const img = document.createElement('img');
     const div = document.createElement('div');
-    div.innerText =  `Nivel${nivel}`;
+    div.innerText =  `Nivel ${nivel}`;
     imgDos.src = 'Fotos/cartel2.png';
     img.src = 'Fotos/start.png';
     imgDos.classList.add('empezar2');
@@ -103,7 +103,19 @@ function cargarEventos() {
             nivelCartel.remove(); 
             cartelStart = false;  
             juego();       
-        }); 
+        });
+        document.addEventListener( 'keydown', (evento) => {
+        if (evento.key === 'Enter') {
+            protector.classList.remove('protector');
+            backgroundMusic.play(); // Reproduce la música de fondo 
+            empezar.remove();
+            empezar2.remove(); 
+            nivelCartel.remove(); 
+            cartelStart = false;  
+            juego(); 
+        }
+    });
+    
     }    
     document.addEventListener('click', (evento) => {
         if (evento.target.classList.contains('celda')) {
@@ -285,7 +297,8 @@ function anadirMomias() {
     let fila;
     let columna;
     for (let i = 0; i <= numeroMomias-1; i++) {        
-
+        console.log(numeroMomias);
+        console.log(i);
         //obtengo una posicion aleatoria en una intersección, así las momias no se quedan atascadas en una recta puesto que la decisión 
         //de movimiento es en las esquinas
         do {
