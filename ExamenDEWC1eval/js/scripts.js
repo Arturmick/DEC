@@ -21,8 +21,8 @@ function cargarPartida() {
         puntosJugador = parseInt(localStorage.getItem("puntosJugador"));
         puntosEnemigo = parseInt(localStorage.getItem("puntosEnemigo"));
         console.log(puntosJugador);
-        crearContenedorEnemigo(puntosEnemigo);
-        crearContenedorJugador(puntosJugador);  
+        sumaPuntosEnemigo(puntosEnemigo);
+        sumaPuntosJugardor(puntosJugador);  
     }    
 }
 function ganador() {
@@ -31,6 +31,7 @@ function ganador() {
     }else {
         solucion.innerHTML = "Has perdido!";
     }
+    proteccion.classList.remove("invisible");
     mensaje.classList.remove("invisible");  
     
     continuar.addEventListener("click", () => {       
@@ -69,23 +70,27 @@ function cargarEventos() {
         window.location.reload();
     });  
 }
-function empezarJuego(imagen) {
-    let enemigo = accionEnemiga();
-    
-    /*setTimeout(deliverar,500);
-    deliveracion.classList.add("invisible");*/
-    
-    mensaje.classList.remove("invisible");
-    pelea(imagen, enemigo);
-}
-function deliverar() {
-    deliveracion.classList.remove("invisible");
-    setTimeout(accionEnemiga,2000);
-}
 function cambiarContenerdor(ev) {
     let imagen = document.getElementById(ev.target.id);
     seleccionado.appendChild(imagen);
 }
+function empezarJuego(jugadorDecision) {
+    
+    setTimeout(() => {  
+        deliveracion.classList.remove("invisible");   
+        proteccion.classList.remove("invisible");   
+        resolcuion(jugadorDecision);
+    },500); 
+}
+function resolcuion(jugadorDecision) {
+    let enemigoDecision = accionEnemiga();   
+    
+    setTimeout(() => {
+        mensaje.classList.remove("invisible");
+        pelea(jugadorDecision, enemigoDecision);
+        },2000);
+}
+
 function anadirImagenes() {
     let items = document.querySelectorAll('.item');    
     
@@ -96,14 +101,16 @@ function anadirImagenes() {
     items[4].innerHTML = `<img id="spock" src="img/spock.png" draggable>`;    
     
 }
-
 function accionEnemiga (){
     let random = Math.floor(Math.random() * enemigo.length);
     let img = document.querySelector('#enemigo img');
-    img.src = `img/${enemigo[random]}.png`;    
+    setTimeout(() => {img.src = `img/${enemigo[random]}.png`;    
+    },1000);      
     return enemigo[random];    
 }
 function pelea(imagen, enemigo) {
+    let jugador = false;
+    let puntos = 0;
 
     console.log(imagen);
     console.log(enemigo);
@@ -124,7 +131,7 @@ function pelea(imagen, enemigo) {
     }else if(enemigo == "papel") {
         papel = true;
     }else if(enemigo == "tijera") {
-        tijera = true;
+        tijeras = true;
     }else if(enemigo == "lagarto") {
         lagarto = true;
     }else if(enemigo == "spock") {
@@ -132,80 +139,77 @@ function pelea(imagen, enemigo) {
     }
     if(tijeras && papel) {
         solucion.innerHTML = "Tijeras cortan papel";
+        puntos = 3;    
         if(imagen.id == "tijera"){
-           sumaPuntosJugardor(3);
-        }else {
-            sumaPuntosEnemigo(3);
+            jugador = true;                   
         }
     } else if(tijeras && lagarto) {
         solucion.innerHTML = "Tijeras decapitan lagarto";	
+        puntos = 3; 
         if(imagen.id == "tijera"){
-            sumaPuntosJugardor(3);
-         }else {
-             sumaPuntosEnemigo(3);
+            jugador = true;              
          }
     } else if(papel && piedra) {
         solucion.innerHTML = "Papel tapa piedra";
+        puntos = 2;  
         if(imagen.id == "papel"){
-            sumaPuntosJugardor(2);
-         }else {
-             sumaPuntosEnemigo(2);
+            jugador = true;             
          }
     } else if(papel && spock) {
         solucion.innerHTML = "Papel desautoriza a Spock";
+        puntos = 2;   
         if(imagen.id == "papel"){
-            sumaPuntosJugardor(2);
-         }else {
-             sumaPuntosEnemigo(2);
+            jugador = true;            
          }
     } else if(piedra && lagarto) {
         solucion.innerHTML = "Piedra aplasta lagarto";
+        puntos = 1; 
         if(imagen.id == "piedra"){
-            sumaPuntosJugardor(1);
-         }else {
-             sumaPuntosEnemigo(1);
+            jugador = true;             
          }
     } else if(piedra && tijeras) {
         solucion.innerHTML = "Piedra aplasta tijeras";
+        puntos = 1; 
         if(imagen.id == "piedra"){
-            sumaPuntosJugardor(1);
-         }else {
-             sumaPuntosEnemigo(1);
+            jugador = true;              
          }
     } else if(lagarto && spock) {
         solucion.innerHTML = "Lagarto envenena a Spock";
+        puntos = 4; 
         if(imagen.id == "lagarto"){
-            sumaPuntosJugardor(4);
-         }else {
-             sumaPuntosEnemigo(4);
+            jugador = true;              
          }
     } else if(lagarto && papel) {
         solucion.innerHTML = "Lagarto se come papel";
+        puntos = 4;  
         if(imagen.id == "lagarto"){
-            sumaPuntosJugardor(4);
-         }else {
-             sumaPuntosEnemigo(4);
+            jugador = true;             
          }
     } else if(spock && tijeras) {
         solucion.innerHTML = "Spock destroza tijeras";
+        puntos = 5;
         if(imagen.id == "spock"){
-            sumaPuntosJugardor(5);
-         }else {
-             sumaPuntosEnemigo(5);
+            jugador = true;               
          }
     } else if(spock && piedra) {
         solucion.innerHTML = "Spock vaporiza piedra";
+        puntos = 5;
         if(imagen.id == "spock"){
-            sumaPuntosJugardor(5);
-         }else {
-             sumaPuntosEnemigo(5);
+            jugador = true;
+            puntos = 5;   
          }
     } else {
         solucion.innerHTML = "Empate!";
     }
+    if(jugador) {
+        puntosJugador += puntos;
+        sumaPuntosJugardor(puntos);        
+    }else {
+        puntosEnemigo += puntos;
+        sumaPuntosEnemigo(puntos);
+    }
 }
-function sumaPuntosJugardor(num) {
-    puntosJugador += num;
+function sumaPuntosJugardor(num) {    
     
     for (let i = 0; i < num; i++) {
         let nuevoContenedor = document.createElement("div");
@@ -214,8 +218,7 @@ function sumaPuntosJugardor(num) {
         yo.appendChild(nuevoContenedor);
     }    
 }
-function sumaPuntosEnemigo(num) {
-    puntosEnemigo += num;
+function sumaPuntosEnemigo(num) {    
 
     for (let i = 0; i < num; i++) {
         let nuevoContenedor = document.createElement("div");
@@ -224,24 +227,6 @@ function sumaPuntosEnemigo(num) {
         el.appendChild(nuevoContenedor);
     }    
 }
-function crearContenedorJugador(num) {
-    for (let i = 0; i < num; i++) {
-        let nuevoContenedor = document.createElement("div");
-        nuevoContenedor.classList.add("punto");
-        nuevoContenedor.classList.add("mio");
-        yo.appendChild(nuevoContenedor);
-    } 
-}
-function crearContenedorEnemigo(num) {
-
-    for (let i = 0; i < num; i++) {
-        let nuevoContenedor = document.createElement("div");
-        nuevoContenedor.classList.add("punto");
-        nuevoContenedor.classList.add("suyo");
-        el.appendChild(nuevoContenedor);
-    } 
-}
-
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
