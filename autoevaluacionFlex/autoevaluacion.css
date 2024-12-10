@@ -12,11 +12,12 @@
     font-size: small;
     display: flex;
     justify-content: space-between;
-
 }
 #miweb {
-    width: 50px;   
-        
+    width: 50px; 
+}
+#alargate {
+    width: 100%; 
 }
 #menus { 
     margin-right: 15px; 
@@ -25,6 +26,14 @@
 }
 #menus > div {
     margin-left: 10px;
+}
+.iluminado {
+    cursor: pointer;    
+}
+.iluminado a {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 .iluminado:hover {
     color: orange;
@@ -37,32 +46,36 @@
     padding-right: 16px;
     text-align: center;    
     padding-top: 1px;
-    color: white;    
+    color: white;        
+}
+#banner:hover {
+    background: linear-gradient(to right, #c37bfe,  #43a5f5);
 }
 #articulos {
     display: flex;
     width: 100%;
     }
 .seccion {
-    padding: 2px;
+    padding: 3px;
     font-size: small;    
 }
 #secciones {
     background-color: rgb(226, 226, 226);
     border-radius: 5px;
     font-size: small;
-    padding: 25px;
+    padding: 2%;
     width: 25%;
     height: 50px;
     margin-top: 10px;
     margin-right: 10px;
-
 }
 .articulo {   
     border-radius: 5px;    
     box-shadow: 2px 2px 5px; 
+    padding: 5px;
+    padding-bottom: 10px;
+    margin: 15px;
 }
-
 footer {
     background-color: rgb(17, 35, 83);
     text-align: center;
@@ -83,44 +96,34 @@ footer {
     color: white;
     padding: 10px;
     border-radius: 10px;
+    margin-left: 1%;
 }
 .cartel {
-    background: linear-gradient(to right, #43a5f5, #c37bfe);;
+    background: linear-gradient(to right, #43a5f5, #c37bfe);
     border-radius: 10px;
     width: 30%;
 }
-
-
-
-
-
+.cartel:hover {
+    background: linear-gradient(to right, #c37bfe,  #43a5f5);
+       
+}
 #fotos {
-    width:100%;
-    margin-right: 5%;
+    width:100%;    
     display: flex;
-    justify-content: space-around;
-    row-gap:10x;
-    
+    justify-content: space-around;  
     padding:10px;
+    height: auto;
+    gap :2%;
 }
-
-/*#fotos {
-    width:100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}*/
-#fotos > div {    
-    width: 100%;
-    height: 100%;
-}
-#fotos div img {    
+#fotos img {    
+    width: 19%;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 20px;   
+    height: auto;   
+    object-fit: contain;
 }
-#fotos > div > img:hover{
-    box-shadow: 2px 2px 5px;
-    /* transform */
-   /* width: 103%;
-    height: 103%;*/
+#fotos > img:hover{
+    box-shadow: 2px 2px 5px;    
+    transform: scale(1.03);
+    transition: 0.3s;
 }
