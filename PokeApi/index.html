@@ -3,11 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pokeApi.css">
     <link rel="icon" href="pokeball.png">
-        <script src="pokeApi.js"></script>
-    <title>Pokedex</title>
+    <script src="pokeApi.js"></script>
+    <title>Pokédex</title>
 </head>
 <body>
-    
+    <div id="content">
+        <div id="marco">
+            <div id="decoraciones">
+                <div id="decoracionUno"></div>
+                <div class="decoracionDos"></div>
+                <div class="decoracionDos"></div>
+            </div>        
+            <div id="fotoMarco">
+                <div id="foto"></div>
+            </div>
+            <div id="nombreMarco">
+                <div id="numero"></div>
+                <div id="nombre"></div>
+            </div>
+        </div>
+        <div id="selector">            
+            <form id="pokemonForm" onsubmit="event.preventDefault(); ajax();">           
+            <input type="text" id="pokemonName" name="pokemonName" placeholder="Nombre del Pokémon">
+            <input type="number" id="pokemonNumber" name="pokemonNumber" min="1" max="1008" placeholder="1 - 1008">
+            <button id="boton">Buscar</button>
+            </form>
+        </div>
+        <div id="informacion"></div>
+    </div>
 </body>
 </html>
