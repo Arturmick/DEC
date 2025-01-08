@@ -36,8 +36,9 @@ function movidas (get, url, boolean) {
 function mostrar () {
     if (peticion.readyState === 4 && peticion.status === 200) {
         datos = JSON.parse(peticion.responseText);
-        procesar();
         console.log(datos);
+        procesar();
+        
     }
 }
 
