@@ -1,21 +1,29 @@
-ul {
-    list-style-type: none;
-}
-li {
-    padding: 20px;
-    margin-bottom: 10px;
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    box-shadow: 5px 5px 15px gray;
-}
-input {
-    padding: 20px;
-    width: calc(100% - 45px);
+body {
+    font-family: Arial, sans-serif;
 }
 
-button {
-    margin-top: 10px;
-    padding: 10px;
-    text-align: center;
+#messages {
+    list-style-type: none;
+    padding: 0;
 }
-.enviado {background-color: khaki;}
+
+#messages li {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+#messages .user-message {
+    background-color: khaki;
+    text-align: right;
+}
+
+#messages .other-message {
+    background-color: white;
+    text-align: left;
+}
+
+#fileLinks a {
+    display: block;
+    margin-bottom: 5px;
+}
