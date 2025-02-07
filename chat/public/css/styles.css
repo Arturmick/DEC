@@ -1,10 +1,36 @@
 body {
     font-family: Arial, sans-serif;
+    width: 99vw;
+    height: 98vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 #messages {
     list-style-type: none;
     padding: 0;
+}
+
+#form {
+    width: 100%;
+}
+#form input {
+    width: 80%;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#form button {
+    width: 12%;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 #messages li {
@@ -19,11 +45,30 @@ body {
 }
 
 #messages .other-message {
-    background-color: white;
+    background-color: rgb(195, 255, 176);
     text-align: left;
+}
+
+#messages img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 5px;
+}
+
+.image-container {
+    display: inline-block;
+    max-width: 200px;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 #fileLinks a {
     display: block;
     margin-bottom: 5px;
+}
+img{
+    width: 200px;
+    height: auto;
 }
