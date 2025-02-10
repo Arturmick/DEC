@@ -36,12 +36,13 @@ app.use('/uploads', express.static(uploadDir)); // Servir archivos estáticos de
 
 // Endpoint to handle file uploads
 app.post('/upload', upload.single('file'), (req, res) => {
+  const user = req.body.user; // Get user name from form data
   if (req.file) {
     const fileData = { filename: req.file.filename, originalname: req.file.originalname };
     const fileExtension = path.extname(req.file.originalname).toLowerCase();
     const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
     const messageType = imageExtensions.includes(fileExtension) ? 'image' : 'file';
-    io.emit('chat message', { type: messageType, data: fileData });
+    io.emit('chat message', { type: messageType, data: fileData, user: user });
     res.status(200).send('File uploaded successfully');
   } else {
     res.status(400).send('No file uploaded');
@@ -51,6 +52,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 io.on('connection', (socket) => {
   socket.on('set user name', (userName) => {
     console.log(`${userName} connected`);
+    socket.userName = userName;
 
     socket.on('disconnect', () => {
       console.log(`${userName} disconnected`);

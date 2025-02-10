@@ -72,3 +72,10 @@ img{
     width: 200px;
     height: auto;
 }
+#fileForm input {
+    width: 80%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}

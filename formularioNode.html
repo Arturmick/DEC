@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario para insertar datos</title>
+  <title>Datos usuarios</title>
 </head>
 <body>
   <h1>Registrar Usuario</h1>
@@ -22,5 +22,26 @@
     <br><br>
     <button type="submit">Enviar</button>
   </form>
+  <h1>Mostrar todos los usuarios</h1>
+  <form id="formularioGet" action="http://localhost:3000/usuarios" method="GET">
+    <button type="submit">Enviar</button>
+  </form>
+  <h1>Buscar usuario por ID</h1>
+  <form id="formularioGetId" action="http://localhost:3000/usuarios" method="GET">
+    <label for="idUsuario2">Id usuario:</label>
+    <input type="text" id="idUsuario2" name="idUsuario2" required>
+    <br><br>
+    <button type="submit">Enviar</button>
+  </form>
+  <script>
+    // const form = document.querySelector('#formularioGetId');
+    // form.addEventListener('submit', (e)=> {
+    //   e.preventDefault();
+    //   const idUsuario = document.getElementById('idUsuario2').value;
+    //   console.log(idUsuario);
+      
+    //   window.location = `http://localhost:3000/usuarios/${idUsuario}`;
+    // })
+  </script>
 </body>
 </html>

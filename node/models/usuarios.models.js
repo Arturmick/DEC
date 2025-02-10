@@ -14,7 +14,15 @@ function Usuario(usuario) {
 /*************************** GET *******************************/
 
 Usuario.buscarTodos = (request, result) => {
+    console.log("GET request received for all users"); // Add this line
     sql.query("SELECT * FROM usuarios", (err, res) => {
+        if (err) {
+            console.error("Error fetching users: ", err); // Add this line
+            result.status(500).send({
+                message: err.message || "Ocurrió un error al obtener los usuarios."
+            });
+            return;
+        }
         console.log("Usuarios: ", res); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
         result.json(res); // Información que enviamos al cliente.
     });
@@ -22,13 +30,23 @@ Usuario.buscarTodos = (request, result) => {
 
 // Donde en la función anterior teníamos una petición (request) sin datos de entrada, ahora tenemos un usuarioID definido en la ruta.
 Usuario.buscarPorID = (request, result) => {
-    sql.query(`SELECT * FROM usuarios WHERE idUsuario = ${request.params.usuarioId}`, (err, res) => {
-        // Si la respuesta de la query devuelve una longitud de 1 o más valores, mostramos el usuario encontrado.
+    console.log(request.params.idUsuario2);
+    sql.query("SELECT * FROM usuarios WHERE idUsuario = ?", [request.params.idUsuario2], (err, res) => {
+        if (err) {
+            console.error("Error fetching user by ID: ", err);
+            result.status(500).send({
+                message: err.message || "Ocurrió un error al obtener el usuario."
+            });
+            return;
+        }
         console.log(res);
         if (res.length) {
-            console.log("Usuario encontrado: ", res[0]); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
-            result.json(res[0]); // Información que enviamos al cliente.
-        } else result({ kind: "not_found" }, null); // No existe un usuario con ese ID
+            console.log("Usuario encontrado: ", res[0]);
+            result.json(res[0]);
+        } else {
+            console.log("Usuario no encontrado");
+            result.status(404).json({ kind: "not_found" });
+        }
     });
 };
 
@@ -46,15 +64,43 @@ Usuario.crear = (request, result) => {
     sql.query("INSERT INTO usuarios SET ?", nuevoUsuario, (err, res) => {
         if (err) {
             console.log("Error al insertar un nuevo usuario: ", err); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
-            result(err, null); // Información que enviamos al cliente.
+            result.status(500).send({
+                message: err.message || "Ocurrió un error al insertar el usuario."
+            });
             return;
         }
         console.log("Usuario creado: ", { id: res.insertId, ...nuevoUsuario }); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
-        result(null, { id: res.insertId, ...nuevoUsuario }); // Información que enviamos al cliente.
+        result.status(201).send({ id: result.insertId, ...nuevoUsuario });
     });
 };
 
 /*************************** PUT *******************************/
+
+Usuario.actualizar = (request, result) => {
+
+    // Creamos un nuevo usuario
+    const usuarioID =request.params.usuarioId;
+
+    sql.query('UPDATE usuarios SET email="kk" WHERE idUsuario = ?', [usuarioID], (err, res) => {
+        if (err) {
+            console.error("Error al actualizar el usuario: ", err); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
+            result.status(500).send({
+                message: err.message || "Ocurrió un error al actualizar el usuario."
+            });
+            return;
+        }
+        if (res.affectedRows > 0) {
+            console.log("Usuario actualizado: ", { id: usuarioID }); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
+            result.json({ message: "Usuario actualizado correctamente." });
+            return;
+        }else {
+            console.log("Usuario no encontrado: ", { id: usuarioID }); // Información que mostramos en la consola donde estamos ejecutando NodeJS (Servidor)
+            result.status(404).json({ message: "Usuario no encontrado." });
+            return;
+        }
+
+    });
+}
 
 /*************************** DELETE *******************************/
 
