@@ -59,9 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
           caption.textContent = `${message.user}`; // Include user name
           imgContainer.appendChild(caption);
           item.appendChild(imgContainer);
+          fileForm.reset();
       }
+
       item.classList.add(className);
       messages.appendChild(item);
+      messages.scrollTop = messages.scrollHeight;
       window.scrollTo(0, document.body.scrollHeight);
   }
 });
