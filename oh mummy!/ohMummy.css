@@ -79,7 +79,7 @@ body {
     grid-template-rows: repeat(13, 60px);      
 }
 #nivelStart {
-    background-color: rgb(172, 101, 9);
+    background-color: #ac6509;
     border: 1px solid black;
     position: absolute;
     top: 5%;

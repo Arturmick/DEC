@@ -30,12 +30,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.table(statsMachine);
     console.table(statsJugador);
 
+    cargarCartelFight();
+    //cargarEventos();
+
     setearStats();    
     dibujarSprites();
     dibujarNumeros();
     pelear();
 
 });
+function cargarCartelFight() {
+    document.getElementById("cartelFight").style.display = "block";
+}
 function setearStats(){
     vidaRestantePlayer = statsJugador[0][4];
     vidaRestanteMachine = statsMachine[0][4];
@@ -55,7 +61,7 @@ async function pelear() {
     
     if(statsJugador[pokemonActualPlayer][9] > statsMachine[pokemonActualMachine][9]) {
 
-        while (vidaRestantePlayer > 0 || vidaRestanteMachine > 0) {
+        while (vidaRestantePlayer > 0 && vidaRestanteMachine > 0) {
 
             await ataque(ataquePlayer, ataqueMachine, defensaPlayer, defensaMachine,vidaPlayer,vidaMachine);
 
@@ -63,7 +69,7 @@ async function pelear() {
         
     }
 }
-function ataque(ataquePlayer, ataqueMachine, defensaPlayer, defensaMachine,vidaPlayer,vidaMachine) {
+async function ataque(ataquePlayer, ataqueMachine, defensaPlayer, defensaMachine,vidaPlayer,vidaMachine) {
     vidaMachine -= (ataquePlayer - defensaMachine);
     vidaPlayer -= (ataqueMachine - defensaPlayer);
 
@@ -76,11 +82,11 @@ function ataque(ataquePlayer, ataqueMachine, defensaPlayer, defensaMachine,vidaP
 
     dibujarVida();
     dibujarNumeros();
+    await esperarEntreAnimaciones(); // Ensure animations wait correctly
 }
 
 async function esperarEntreAnimaciones() {
-    
-    setTimeout(2000);
+    return new Promise(resolve => setTimeout(resolve, 2000)); // Correctly use setTimeout
 }
 function ataqueMasAlto(stats) {
     let ataque = "";
@@ -148,6 +154,7 @@ async function numeroAleatorio() {
         }
         numerosAleatorios[i] = num;
     }
+    num = 133;
     console.log(numerosAleatorios);    
 }
 function dibujarSprites() {

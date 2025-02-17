@@ -21,7 +21,18 @@ img {
     background-size: cover;
     overflow: hidden;
 }
-
+/******************************cartel fight***********************************/
+#cartelFight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Adjust height to cover the viewport */
+    background-image: url(imgs/cartelLucha.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+    z-index: 9999; /* Ensure it appears in front of all other elements */
+}
 /**************************************************** Sprites *****************************************************/
 
 #jugadaMachine {
